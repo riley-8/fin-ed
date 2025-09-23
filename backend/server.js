@@ -1,37 +1,25 @@
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
-const authRouter = require('./routes/auth');
-const onboardingRouter = require('./routes/onboarding');
-const dashboardRouter = require('./routes/dashboard');
-const lessonsRouter = require('./routes/lessons');
-const challengesRouter = require('./routes/challenges');
-const chatbotRouter = require('./routes/chatbot');
-const gamificationRouter = require('./routes/gamification');
-const analyticsRouter = require('./routes/analytics');
-
-dotenv.config();
+require('dotenv').config();
 
 const app = express();
 
+// Init Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ extended: false }));
 
-app.use('/api/auth', authRouter);
-app.use('/api/onboarding', onboardingRouter);
-app.use('/api/dashboard', dashboardRouter);
-app.use('/api/lessons', lessonsRouter);
-app.use('/api/challenges', challengesRouter);
-app.use('/api/chatbot', chatbotRouter);
-app.use('/api/gamification', gamificationRouter);
-app.use('/api/analytics', analyticsRouter);
-
-app.get('/', (req, res) => {
-  res.send('FinEd AI Backend is running!');
-});
+// Define Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/onboarding', require('./routes/onboarding'));
+app.use('/api/dashboard', require('./routes/dashboard'));
+app.use('/api/lessons', require('./routes/lessons'));
+app.use('/api/challenges', require('./routes/challenges'));
+app.use('/api/chatbot', require('./routes/chatbot'));
+app.use('/api/gamification', require('./routes/gamification'));
+app.use('/api/analytics', require('./routes/analytics'));
+app.use('/api/profile', require('./routes/profile'));
+app.use('/api/scenarios', require('./routes/scenario-simulation'));
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
