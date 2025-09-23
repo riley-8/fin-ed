@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinEd AI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="auth-container">
+        <div id="login-form">
+            <h2>Login</h2>
+            <input type="email" id="login-email" placeholder="Email">
+            <input type="password" id="login-password" placeholder="Password">
+            <button id="login-button">Login</button>
+            <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
+        </div>
+        <div id="register-form" style="display: none;">
+            <h2>Register</h2>
+            <input type="text" id="register-username" placeholder="Username">
+            <input type="email" id="register-email" placeholder="Email">
+            <input type="password" id="register-password" placeholder="Password">
+            <button id="register-button">Register</button>
+            <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+        </div>
+    </div>
+
+    <div id="app-container" style="display: none;">
+        <header>
+            <h1>FinEd AI</h1>
+            <nav>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#lessons">Lessons</a>
+                <a href="#challenges">Challenges</a>
+                <a href="#chatbot">Chatbot</a>
+                <a href="#gamification">Gamification</a>
+                <a href="#" id="logout-button">Logout</a>
+            </nav>
+        </header>
+
+        <main id="app">
+            <!-- Content will be dynamically injected here -->
+        </main>
+
+        <footer>
+            <p>&copy; 2023 FinEd AI. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
