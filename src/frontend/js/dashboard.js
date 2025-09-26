@@ -632,24 +632,66 @@ function initializeScanners() {
         });
     }
     
-    function scanURL(url) {
-        showScanProgress('Scanning URL for threats...');
+    // Updated scanURL function that uses real AI scanning
+async function scanURL(url) {
+    showScanProgress('Scanning URL for threats with AI...');
+    
+    try {
+        const response = await fetch('/api/scan/url', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url: url })
+        });
+
+        if (!response.ok) {
+            throw new Error('Scan failed');
+        }
+
+        const result = await response.json();
         
-        setTimeout(() => {
-            const isSafe = Math.random() > 0.3; // 70% chance it's safe
-            const result = {
-                type: 'URL',
-                target: url,
-                safe: isSafe,
-                threats: isSafe ? [] : ['Potential phishing site', 'Suspicious domain age'],
-                score: isSafe ? 95 : 25,
-                recommendations: isSafe ? 
-                    ['URL appears safe to visit', 'SSL certificate is valid'] : 
-                    ['Do not visit this site', 'Report as phishing', 'Clear browser cache']
-            };
-            displayScanResult(result);
-        }, 2000);
+        // Transform the AI response to match your expected format
+        const formattedResult = {
+            type: result.type || 'URL',
+            target: result.target || url,
+            safe: result.safe || false,
+            threats: result.threats || [],
+            score: result.confidence || (result.safe ? 95 : 25),
+            recommendations: result.recommendations || [],
+            threatLevel: result.threatLevel || 'unknown',
+            category: result.category || 'suspicious',
+            details: result.details || {}
+        };
+        
+        displayScanResult(formattedResult);
+        
+    } catch (error) {
+        console.error('URL scan error:', error);
+        
+        // Fallback to basic analysis if AI fails
+        const fallbackResult = {
+            type: 'URL',
+            target: url,
+            safe: false,
+            threats: ['Scan unavailable - proceeding with caution'],
+            score: 50,
+            recommendations: [
+                'Verify the URL manually',
+                'Check for HTTPS encryption',
+                'Look for website reviews',
+                'Use antivirus software'
+            ],
+            threatLevel: 'unknown',
+            category: 'suspicious',
+            details: {
+                note: 'AI scan failed, use caution'
+            }
+        };
+        
+        displayScanResult(fallbackResult);
     }
+}
     
     function scanMessage(message) {
         showScanProgress('Analyzing message for phishing attempts...');
