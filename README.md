@@ -1,3 +1,38 @@
+# Fin-Ed AI
+
+**Fin-Ed AI** is a web application that provides financial education and resources to help users improve their financial literacy. The platform offers a variety of tools and resources, including interactive courses, financial calculators, a credit score tracker, a budgeting tool, a stock market tracker, a financial news feed, and a community forum.
+
+## Features
+
+- **Courses:** Interactive courses on a variety of financial topics, including budgeting, investing, and retirement planning.
+- **Financial Calculators:** A collection of calculators to help users with financial planning, such as a mortgage calculator, a loan calculator, and a retirement calculator.
+- **Credit Score:** A tool to help users track their credit score and get tips on how to improve it.
+- **Budgeting:** A tool to help users create and manage a budget.
+- **Security:** A page with tips on how to protect your financial information.
+- **Stock Market:** A real-time stock market tracker.
+- **News:** A feed of the latest financial news.
+- **Community:** A forum where users can connect with each other and discuss financial topics.
+
+## Getting Started
+
+To get started with Fin-Ed AI, you will need to have a web browser and an internet connection. You can access the application by navigating to the `src/frontend/html/landing.html` file in your web browser.
+
+## Usage
+
+To use the application, simply open the `src/frontend/html/landing.html` file in your web browser. From there, you can navigate to the various pages of the application using the navigation bar.
+
+## Contributing
+
+Contributions to Fin-Ed AI are welcome. To contribute, please fork the repository and submit a pull request.
+
+## License
+
+Fin-Ed AI is licensed under the MIT License. See the `LICENSE` file for more information.
+
+---
+
+## Original Project Vision
+
 # fin-ed
 
 

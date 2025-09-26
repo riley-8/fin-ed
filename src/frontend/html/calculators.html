@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Calculators - Fin-Ed AI</title>
+    <link rel="stylesheet" href="../css/calculators.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="landing.html" class="logo">Fin-Ed AI</a>
+            <ul>
+                <li><a href="landing.html#home">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="calculators.html">Calculators</a></li>
+                <li><a href="landing.html#features">Features</a></li>
+                <li><a href="landing.html#about">About</a></li>
+                <li><a href="landing.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="calculator-hero">
+            <article class="hero-text">
+                <h1>Financial Calculators</h1>
+                <p>Tools to help you plan your financial future.</p>
+            </article>
+        </section>
+
+        <section class="calculators-list">
+            <header class="section-header">
+                <h2>Savings Calculator</h2>
+            </header>
+            <article class="calculator">
+                <form id="savings-calculator">
+                    <label for="initial-investment">Initial Investment:</label>
+                    <input type="number" id="initial-investment" placeholder="e.g., 1000">
+
+                    <label for="monthly-contribution">Monthly Contribution:</label>
+                    <input type="number" id="monthly-contribution" placeholder="e.g., 100">
+
+                    <label for="interest-rate">Annual Interest Rate (%):</label>
+                    <input type="number" id="interest-rate" placeholder="e.g., 5">
+
+                    <label for="years">Number of Years:</label>
+                    <input type="number" id="years" placeholder="e.g., 10">
+
+                    <button type="submit" class="btn-primary">Calculate</button>
+                </form>
+                <article id="savings-results">
+                    <h3>Results</h3>
+                    <p>Future Value: <strong id="future-value">R0.00</strong></p>
+                </article>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Fin-Ed AI. All rights reserved.</p>
+    </footer>
+
+    <script src="../js/calculators.js"></script>
+</body>
+</html>

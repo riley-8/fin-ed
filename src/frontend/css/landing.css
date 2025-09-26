@@ -596,6 +596,16 @@ body {
     font-size: 0.95rem;
 }
 
+/* Community Section */
+.community {
+    padding: 8rem 0;
+    text-align: center;
+}
+
+.community-content {
+    margin-top: 2.5rem;
+}
+
 /* CTA Section */
 .cta-section {
     padding: 6rem 0;

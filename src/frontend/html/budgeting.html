@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgeting - Fin-Ed AI</title>
+    <link rel="stylesheet" href="../css/budgeting.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="landing.html" class="logo">Fin-Ed AI</a>
+            <ul>
+                <li><a href="landing.html#home">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="calculators.html">Calculators</a></li>
+                <li><a href="credit-score.html">Credit Score</a></li>
+                <li><a href="budgeting.html">Budgeting</a></li>
+                <li><a href="landing.html#features">Features</a></li>
+                <li><a href="landing.html#about">About</a></li>
+                <li><a href="landing.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="budgeting-hero">
+            <article class="hero-text">
+                <h1>Create Your Budget</h1>
+                <p>Take control of your spending and save for your future.</p>
+            </article>
+        </section>
+
+        <section class="budgeting-tool">
+            <article class="income-expense">
+                <section class="income">
+                    <h2>Income</h2>
+                    <form id="income-form">
+                        <input type="text" id="income-source" placeholder="Source">
+                        <input type="number" id="income-amount" placeholder="Amount">
+                        <button type="submit" class="btn-primary">Add Income</button>
+                    </form>
+                    <ul id="income-list"></ul>
+                </section>
+                <section class="expenses">
+                    <h2>Expenses</h2>
+                    <form id="expense-form">
+                        <input type="text" id="expense-category" placeholder="Category">
+                        <input type="number" id="expense-amount" placeholder="Amount">
+                        <button type="submit" class="btn-primary">Add Expense</button>
+                    </form>
+                    <ul id="expense-list"></ul>
+                </section>
+            </article>
+            <article class="budget-summary">
+                <h2>Summary</h2>
+                <p>Total Income: <strong id="total-income">R0.00</strong></p>
+                <p>Total Expenses: <strong id="total-expenses">R0.00</strong></p>
+                <p>Remaining: <strong id="remaining-balance">R0.00</strong></p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Fin-Ed AI. All rights reserved.</p>
+    </footer>
+
+    <script src="../js/budgeting.js"></script>
+</body>
+</html>
