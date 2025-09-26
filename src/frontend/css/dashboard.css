@@ -550,6 +550,24 @@ body {
     padding: 0.75rem 1rem;
     border-radius: 12px;
     max-width: 70%;
+    position: relative;
+}
+
+.message-content p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.message-content strong {
+    color: #22c55e;
+    font-weight: 600;
+}
+
+.message-timestamp {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+    text-align: right;
 }
 
 .user-message .message-content {

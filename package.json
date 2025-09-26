@@ -13,7 +13,12 @@
     "type": "git",
     "url": "git+https://github.com/riley-8/fin-ed.git"
   },
-  "keywords": ["fintech", "financial literacy", "AI", "Supabase"],
+  "keywords": [
+    "fintech",
+    "financial literacy",
+    "AI",
+    "Supabase"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -21,6 +26,7 @@
   },
   "homepage": "https://github.com/riley-8/fin-ed#readme",
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@supabase/supabase-js": "^2.58.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
@@ -31,7 +37,7 @@
   },
   "devDependencies": {
     "jest": "^30.1.3",
-    "supertest": "^7.1.4",
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "supertest": "^7.1.4"
   }
 }

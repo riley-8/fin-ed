@@ -93,25 +93,111 @@ function initializeAIWidget() {
         aiFab.style.display = 'flex';
     });
     
-    // Send AI message
+    // Send AI message with real API integration
     function sendMessage() {
         const message = aiInput.value.trim();
         if (message) {
             addAIMessage(message, 'user');
             aiInput.value = '';
             
-            // Simulate AI response
-            setTimeout(() => {
-                const responses = [
-                    "I'd be happy to help you with that financial question. Let me analyze the current market trends for you.",
-                    "That's a great security question! Here's what I recommend based on best practices.",
-                    "Based on your portfolio, I suggest diversifying into these sectors for better risk management.",
-                    "I've scanned that link and it appears to be safe. Here are the security details.",
-                    "Your budget looks good! Here are some tips to optimize your savings further."
+            // Show typing indicator for floating widget
+            showAIWidgetTyping();
+            
+            // Make API call to Gemini
+            fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    message: message,
+                    context: 'Quick AI assistant consultation'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                removeAIWidgetTyping();
+                if (data.message) {
+                    addAIMessage(data.message, 'ai');
+                } else {
+                    addAIMessage("I'm having trouble processing that right now. Please try again.", 'ai');
+                }
+            })
+            .catch(error => {
+                console.error('AI Widget error:', error);
+                removeAIWidgetTyping();
+                
+                // Fallback responses for floating widget
+                const quickResponses = [
+                    "I'm here to help with your financial questions! What would you like to know?",
+                    "I can assist with budgeting, investing, or security concerns. What's on your mind?",
+                    "Having connection issues. Please try again or use the main AI advisor section for detailed help."
                 ];
-                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                
+                const randomResponse = quickResponses[Math.floor(Math.random() * quickResponses.length)];
                 addAIMessage(randomResponse, 'ai');
-            }, 1000);
+            });
+        }
+    }
+    
+    function showAIWidgetTyping() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'ai-message typing-widget';
+        typingDiv.id = 'ai-widget-typing';
+        typingDiv.innerHTML = `
+            <div class="typing-dots-widget">
+                <div class="typing-dot-widget"></div>
+                <div class="typing-dot-widget"></div>
+                <div class="typing-dot-widget"></div>
+            </div>
+        `;
+        
+        aiMessages.appendChild(typingDiv);
+        aiMessages.scrollTop = aiMessages.scrollHeight;
+        
+        // Add CSS for widget typing indicator
+        if (!document.getElementById('widget-typing-styles')) {
+            const style = document.createElement('style');
+            style.id = 'widget-typing-styles';
+            style.textContent = `
+                .typing-dots-widget {
+                    display: flex;
+                    align-items: center;
+                    gap: 3px;
+                    padding: 0.5rem;
+                }
+                .typing-dot-widget {
+                    width: 6px;
+                    height: 6px;
+                    background: #22c55e;
+                    border-radius: 50%;
+                    animation: typing-widget 1.4s infinite ease-in-out;
+                }
+                .typing-dot-widget:nth-child(2) {
+                    animation-delay: 0.2s;
+                }
+                .typing-dot-widget:nth-child(3) {
+                    animation-delay: 0.4s;
+                }
+                @keyframes typing-widget {
+                    0%, 60%, 100% {
+                        transform: translateY(0);
+                        opacity: 0.4;
+                    }
+                    30% {
+                        transform: translateY(-6px);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    
+    function removeAIWidgetTyping() {
+        const typingIndicator = document.getElementById('ai-widget-typing');
+        if (typingIndicator) {
+            typingIndicator.remove();
         }
     }
     
@@ -138,29 +224,149 @@ function initializeAIChat() {
     const chatMessages = document.getElementById('chat-messages');
     const quickActions = document.querySelectorAll('.quick-action');
     
-    // Send message function
-    function sendChatMessage() {
+    // Send message function with real AI integration
+    async function sendChatMessage() {
         const message = chatInput.value.trim();
         if (message) {
             addChatMessage(message, 'user');
             chatInput.value = '';
             
-            // Simulate AI response
-            setTimeout(() => {
-                const responses = {
-                    'investment': "Based on your risk profile, I recommend a diversified portfolio with 60% stocks, 30% bonds, and 10% alternative investments. Would you like me to explain each category?",
-                    'link': "I can help you scan links for potential threats. Please paste the URL you'd like me to analyze for phishing attempts, malware, or other security risks.",
-                    'budget': "Let's create a budget together! First, what's your monthly income? Then we'll categorize your expenses using the 50/30/20 rule as a starting point.",
-                    'default': "That's a great question! Let me provide you with some personalized advice based on your financial profile and security settings."
-                };
+            // Show typing indicator
+            showTypingIndicator();
+            
+            try {
+                // Make API call to our backend which calls Gemini
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        message: message,
+                        context: getCurrentContext()
+                    })
+                });
                 
-                let response = responses.default;
-                if (message.toLowerCase().includes('invest')) response = responses.investment;
-                if (message.toLowerCase().includes('link') || message.toLowerCase().includes('url')) response = responses.link;
-                if (message.toLowerCase().includes('budget')) response = responses.budget;
+                const data = await response.json();
                 
-                addChatMessage(response, 'ai');
-            }, 1500);
+                if (response.ok) {
+                    // Remove typing indicator
+                    removeTypingIndicator();
+                    
+                    // Add AI response
+                    addChatMessage(data.message, 'ai');
+                    
+                    // Show notification if using fallback
+                    if (data.fallback) {
+                        setTimeout(() => {
+                            showNotification('Note: Using offline mode. For best results, ensure your internet connection is stable.', 'info');
+                        }, 1000);
+                    }
+                } else {
+                    removeTypingIndicator();
+                    addChatMessage("I'm having trouble connecting right now. Please try again in a moment, or check your internet connection.", 'ai');
+                    showNotification('Connection error. Please try again.', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Chat error:', error);
+                removeTypingIndicator();
+                
+                // Fallback to basic responses
+                const basicResponses = [
+                    "I'm currently having technical difficulties. Please try again in a few moments.",
+                    "Sorry, I can't connect to my AI services right now. Please check your internet connection and try again.",
+                    "I'm experiencing some connection issues. In the meantime, you can explore our educational resources or try the fraud scanner."
+                ];
+                
+                const randomResponse = basicResponses[Math.floor(Math.random() * basicResponses.length)];
+                addChatMessage(randomResponse, 'ai');
+                showNotification('Unable to connect to AI services. Please try again later.', 'error');
+            }
+        }
+    }
+    
+    // Get current context for better AI responses
+    function getCurrentContext() {
+        const activeSection = document.querySelector('.content-section.active');
+        const sectionId = activeSection ? activeSection.id : 'dashboard';
+        
+        const contexts = {
+            'dashboard': 'User is viewing their financial dashboard with portfolio and security overview',
+            'ai-advisor': 'User is in the AI advisor chat seeking financial guidance',
+            'fraud-scanner': 'User is interested in cybersecurity and fraud detection',
+            'security-center': 'User is reviewing their security settings and alerts',
+            'education': 'User is exploring educational content about finance and security',
+            'life-simulator': 'User is practicing financial decisions in a simulated environment',
+            'challenges': 'User is working on gamified financial and security challenges',
+            'portfolio': 'User is reviewing their investment portfolio and performance'
+        };
+        
+        return contexts[sectionId] || 'General financial consultation';
+    }
+    
+    // Enhanced typing indicator
+    function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message ai-message typing-indicator';
+        typingDiv.id = 'typing-indicator';
+        typingDiv.innerHTML = `
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        `;
+        
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Add CSS for typing indicator if not exists
+        if (!document.getElementById('typing-indicator-styles')) {
+            const style = document.createElement('style');
+            style.id = 'typing-indicator-styles';
+            style.textContent = `
+                .typing-dots {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    padding: 1rem;
+                }
+                .typing-dot {
+                    width: 8px;
+                    height: 8px;
+                    background: #22c55e;
+                    border-radius: 50%;
+                    animation: typing 1.4s infinite ease-in-out;
+                }
+                .typing-dot:nth-child(2) {
+                    animation-delay: 0.2s;
+                }
+                .typing-dot:nth-child(3) {
+                    animation-delay: 0.4s;
+                }
+                @keyframes typing {
+                    0%, 60%, 100% {
+                        transform: translateY(0);
+                        opacity: 0.4;
+                    }
+                    30% {
+                        transform: translateY(-10px);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    
+    function removeTypingIndicator() {
+        const typingIndicator = document.getElementById('typing-indicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
         }
     }
     
@@ -171,7 +377,7 @@ function initializeAIChat() {
         }
     });
     
-    // Quick actions
+    // Enhanced quick actions with context
     quickActions.forEach(action => {
         action.addEventListener('click', function() {
             const message = this.getAttribute('data-message');
@@ -183,16 +389,67 @@ function initializeAIChat() {
     function addChatMessage(message, type) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${type}-message`;
+        
+        // Enhanced message formatting
+        const formattedMessage = formatAIMessage(message, type);
+        
         messageDiv.innerHTML = `
             <div class="message-avatar">
                 <i class="fas ${type === 'user' ? 'fa-user' : 'fa-robot'}"></i>
             </div>
             <div class="message-content">
-                <p>${message}</p>
+                ${formattedMessage}
+            </div>
+            <div class="message-timestamp">
+                ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
             </div>
         `;
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Add animation
+        messageDiv.style.opacity = '0';
+        messageDiv.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            messageDiv.style.transition = 'all 0.3s ease';
+            messageDiv.style.opacity = '1';
+            messageDiv.style.transform = 'translateY(0)';
+        }, 100);
+    }
+    
+    // Format AI messages for better readability
+    function formatAIMessage(message, type) {
+        if (type === 'user') {
+            return `<p>${message}</p>`;
+        }
+        
+        // Enhanced AI message formatting
+        let formatted = message;
+        
+        // Convert numbered lists
+        formatted = formatted.replace(/(\d+)\.\s/g, '<br><strong>$1.</strong> ');
+        
+        // Convert bullet points
+        formatted = formatted.replace(/•\s/g, '<br>• ');
+        formatted = formatted.replace(/-\s/g, '<br>• ');
+        
+        // Bold important terms
+        const importantTerms = [
+            'diversified portfolio', 'emergency fund', 'compound interest', 'risk tolerance',
+            'two-factor authentication', '2FA', 'phishing', 'malware', 'fraud',
+            'budget', 'investment', 'savings', 'debt', 'credit score'
+        ];
+        
+        importantTerms.forEach(term => {
+            const regex = new RegExp(`\\b${term}\\b`, 'gi');
+            formatted = formatted.replace(regex, `<strong>${term}</strong>`);
+        });
+        
+        // Add line breaks for better readability
+        formatted = formatted.replace(/\.\s+([A-Z])/g, '.<br><br>$1');
+        
+        return `<p>${formatted}</p>`;
     }
 }
 
