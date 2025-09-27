@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,146 +6,177 @@
     <title>Community - Fin-Ed AI</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/community.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="landing.html" class="nav-logo">
-                <i class="fas fa-lightbulb"></i>
+    <header class="app-header">
+        <nav class="navbar container">
+            <a href="landing.html" class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
                 <span>Fin-Ed AI</span>
             </a>
-            <div class="nav-menu">
-                <a href="courses.html" class="nav-link">Courses</a>
-                <a href="calculators.html" class="nav-link">Calculators</a>
-                <a href="credit-score.html" class_name="nav-link">Credit Score</a>
-                <a href="budgeting.html" class="nav-link">Budgeting</a>
-                <a href="security.html" class="nav-link">Security</a>
-                <a href="stock-market.html" class="nav-link">Stock Market</a>
-                <a href="news.html" class="nav-link">News</a>
-                <a href="community.html" class="nav-link">Community</a>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="budgeting.html" class="nav-link">Budgeting</a></li>
+                <li><a href="investing.html" class="nav-link">Investing</a></li>
+                <li><a href="security.html" class="nav-link">Security</a></li>
+                <li><a href="courses.html" class="nav-link">Courses</a></li>
+                <li><a href="community.html" class="nav-link active">Community</a></li>
+                <li><a href="news.html" class="nav-link">News</a></li>
+                <li><a href="credit-score.html" class="nav-link">Credit Score</a></li>
+                <li><a href="stock-market.html" class="nav-link">Stock Market</a></li>
+            </ul>
+            <div class="nav-user">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%232563eb'/%3E%3Ccircle cx='16' cy='12' r='5' fill='white'/%3E%3Cpath d='M16,22c-5,0-9,3-9,7c0,0,0,0,0,0h18c0-4-4-7-9-7z' fill='white'/%3E%3C/svg%3E" alt="User Avatar" class="user-avatar">
+                <span>User</span>
             </div>
-            <a href="auth.html" class="cta-btn">Get Started</a>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <main>
+    <main class="container">
         <section class="community-hero">
-            <article class="hero-text">
-                <h1>Community Forum</h1>
-                <p>Connect with peers, ask questions, and share your knowledge.</p>
-            </article>
+            <header>
+                <h1>Financial Security Community</h1>
+                <p>Connect, learn, and grow with others on their financial literacy journey</p>
+            </header>
+            <div class="community-stats">
+                <article class="stat-card">
+                    <h3>12,847</h3>
+                    <p>Active Members</p>
+                </article>
+                <article class="stat-card">
+                    <h3>3,492</h3>
+                    <p>Questions Answered</p>
+                </article>
+                <article class="stat-card">
+                    <h3>98%</h3>
+                    <p>Member Satisfaction</p>
+                </article>
+            </div>
         </section>
 
         <section class="community-content">
-            <div class="forum-main">
-                <div class="forum-controls">
-                    <button class="btn-primary" id="new-topic-btn">Create New Topic</button>
-                    <div class="search-bar">
-                        <input type="text" id="search-input" placeholder="Search topics...">
-                        <button class="btn-primary" id="search-btn"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-
-                <div class="forum-topics">
-                    <h2>Topics</h2>
-                    <ul id="topics-list">
-                        <li class="topic-item">
-                            <div class="topic-title"><a href="#">Introduction to Investing</a></div>
-                            <div class="topic-meta"><span>Posts: 1.2k</span> | <span>Last Post: 2 hours ago</span></div>
-                        </li>
-                        <li class="topic-item">
-                            <div class="topic-title"><a href="#">Cybersecurity Best Practices</a></div>
-                            <div class="topic-meta"><span>Posts: 580</span> | <span>Last Post: 1 hour ago</span></div>
-                        </li>
-                        <li class="topic-item">
-                            <div class="topic-title"><a href="#">Risk Management & Strategy</a></div>
-                            <div class="topic-meta"><span>Posts: 340</span> | <span>Last Post: 3 hours ago</span></div>
-                        </li>
-                         <li class="topic-item">
-                            <div class="topic-title"><a href="#">Retirement Planning</a></div>
-                            <div class="topic-meta"><span>Posts: 890</span> | <span>Last Post: 45 minutes ago</span></div>
-                        </li>
+            <aside class="community-sidebar">
+                <section class="leaderboard-section">
+                    <h2>Community Leaders</h2>
+                    <ul id="leaderboardList" class="leaderboard-list">
+                        <!-- Leaderboard will be populated by JS -->
                     </ul>
-                </div>
-            </div>
-            <aside class="forum-sidebar">
-                <div class="trending-topics">
-                    <h3>Trending Topics</h3>
-                    <ul>
-                        <li><a href="#">#StockMarketCrash</a></li>
-                        <li><a href="#">#CyberSecTips</a></li>
-                        <li><a href="#">#RetirementGoals</a></li>
-                    </ul>
-                </div>
-                <div class="top-contributors">
-                    <h3>Top Contributors</h3>
-                    <ul>
-                        <li>
-                            <div class="contributor-info">
-                                <i class="fas fa-user-circle"></i>
-                                <span>JohnDoe</span>
+                </section>
+                
+                <section class="weekly-challenge">
+                    <h2>Challenge of the Week</h2>
+                    <article class="challenge-card">
+                        <h3 id="challengeTitle">Secure Your Digital Identity</h3>
+                        <p id="challengeDescription">Complete all identity protection modules and share your experience</p>
+                        <div class="challenge-progress">
+                            <div class="progress">
+                                <div class="progress-bar" id="challengeProgress" style="width: 45%"></div>
                             </div>
-                            <span class="badge">Gold</span>
-                        </li>
-                        <li>
-                            <div class="contributor-info">
-                                <i class="fas fa-user-circle"></i>
-                                <span>JaneSmith</span>
-                            </div>
-                            <span class="badge">Silver</span>
-                        </li>
-                    </ul>
-                </div>
+                            <span>45% completed</span>
+                        </div>
+                        <button class="btn btn-primary" id="joinChallengeBtn">Join Challenge</button>
+                    </article>
+                </section>
+                
+                <section class="mentor-match">
+                    <h2>Find a Mentor</h2>
+                    <p>Connect with experienced financial security experts</p>
+                    <button class="btn btn-outline" id="findMentorBtn">Match with Mentor</button>
+                    <div id="mentorMatchResult" class="mentor-result"></div>
+                </section>
             </aside>
+
+            <section class="community-main">
+                <header class="discussion-header">
+                    <h2>Community Discussions</h2>
+                    <button class="btn btn-primary" id="newTopicBtn">
+                        <i class="fas fa-plus"></i> New Topic
+                    </button>
+                </header>
+                
+                <form id="topicForm" class="topic-form hidden">
+                    <input type="text" id="topicTitle" class="form-control" placeholder="Topic title" required>
+                    <textarea id="topicContent" class="form-control" placeholder="What would you like to discuss?" rows="4" required></textarea>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelTopicBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Post Topic</button>
+                    </div>
+                </form>
+                
+                <section class="discussion-filters">
+                    <button class="filter-btn active" data-filter="all">All Topics</button>
+                    <button class="filter-btn" data-filter="popular">Popular</button>
+                    <button class="filter-btn" data-filter="recent">Recent</button>
+                    <button class="filter-btn" data-filter="unanswered">Unanswered</button>
+                </section>
+                
+                <section id="discussionList" class="discussion-list">
+                    <!-- Discussions will be populated by JS -->
+                </section>
+            </section>
         </section>
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>Fin-Ed AI</span>
-                </div>
-                <div class="footer-links">
-                    <a href="courses.html" class="footer-link">Courses</a>
-                    <a href="calculators.html" class="footer-link">Calculators</a>
-                    <a href="credit-score.html" class="footer-link">Credit Score</a>
-                    <a href="budgeting.html" class="footer-link">Budgeting</a>
-                    <a href="security.html" class="footer-link">Security</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="sponsors">
-                <div class="container">
-                    <div class="section-header">
-                        <h2>Our Sponsors</h2>
+        <section class="container">
+            <section class="footer-content">
+                <article class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Fin-Ed AI</span>
                     </div>
-                    <div class="sponsors-grid">
-                        <div class="sponsor-logo"><img src="" alt="Entelect"></div>
-                        <div class="sponsor-logo"><img src="" alt="MWR Cybersec"></div>
-                        <div class="sponsor-logo"><img src="" alt="Elenjical Solutions"></div>
-                        <div class="sponsor-logo"><img src="" alt="Pygio"></div>
-                        <div class="sponsor-logo"><img src="" alt="Analytical Technologies"></div>
-                        <div class="sponsor-logo"><img src="" alt="BET Software"></div>
-                        <div class="sponsor-logo"><img src="" alt="Oxfusion"></div>
-                        <div class="sponsor-logo"><img src="" alt="BSG"></div>
-                        <div class="sponsor-logo"><img src="" alt="Disraptor"></div>
-                        <div class="sponsor-logo"><img src="" alt="eHub"></div>
+                    <p>Empowering communities through AI-driven financial literacy and cybersecurity education.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
                     </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Fin-Ed AI. All rights reserved.</p>
-            </div>
-        </div>
+                </article>
+                
+                <article class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="courses.html">Learning Modules</a></li>
+                        <li><a href="security.html">Security Tools</a></li>
+                        <li><a href="news.html">Financial News</a></li>
+                        <li><a href="community.html">Community</a></li>
+                    </ul>
+                </article>
+                
+                <article class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </article>
+                
+                <article class="footer-section">
+                    <h4>Partners</h4>
+                    <ul>
+                        <li>Entelect</li>
+                        <li>MWR CyberSec</li>
+                        <li>Elenjical Solutions</li>
+                        <li>Pygio</li>
+                    </ul>
+                </article>
+            </section>
+            
+            <section class="footer-bottom">
+                <p>&copy; 2023 Fin-Ed AI. All rights reserved.</p>
+            </section>
+        </section>
     </footer>
 
     <script src="../js/community.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>

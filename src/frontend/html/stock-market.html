@@ -1,107 +1,283 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Market - Fin-Ed AI</title>
+    <title>Stock Market Simulator | Fin-Ed AI</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/stock-market.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="landing.html" class="nav-logo">
-                <i class="fas fa-lightbulb"></i>
-                <span>Fin-Ed AI</span>
+    <header class="app-header">
+        <nav class="navbar container">
+            <a href="landing.html" class="nav-brand">
+                <i>📈</i> Fin-Ed AI
             </a>
-            <div class="nav-menu">
-                <a href="courses.html" class="nav-link">Courses</a>
-                <a href="calculators.html" class="nav-link">Calculators</a>
-                <a href="credit-score.html" class="nav-link">Credit Score</a>
-                <a href="budgeting.html" class="nav-link">Budgeting</a>
-                <a href="security.html" class="nav-link">Security</a>
-                <a href="stock-market.html" class="nav-link">Stock Market</a>
-                <a href="news.html" class="nav-link">News</a>
-                <a href="community.html" class="nav-link">Community</a>
-            </div>
-            <a href="auth.html" class="cta-btn">Get Started</a>
-        </div>
-    </nav>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="budgeting.html" class="nav-link">Budgeting</a></li>
+                <li><a href="investing.html" class="nav-link">Investing</a></li>
+                <li><a href="stock-market.html" class="nav-link active">Stock Market</a></li>
+                <li><a href="security.html" class="nav-link">Security</a></li>
+                <li><a href="courses.html" class="nav-link">Courses</a></li>
+                <li><a href="community.html" class="nav-link">Community</a></li>
+                <li><a href="news.html" class="nav-link">News</a></li>
+            </ul>
+            <section class="nav-user">
+                <img src="../assets/user-avatar.jpg" alt="User Avatar" class="user-avatar">
+                <span>User Profile</span>
+            </section>
+        </nav>
+    </header>
 
-    <main>
-        <section class="stock-market-hero">
-            <article class="hero-text">
-                <h1>Stock Market</h1>
-                <p>Your real-time window into the world of stocks.</p>
+    <main class="container">
+        <header class="page-header">
+            <h1>Stock Market Simulator</h1>
+            <p>Practice investing with virtual money and learn market dynamics through AI-powered insights</p>
+        </header>
+
+        <section class="simulator-overview">
+            <article class="portfolio-summary card">
+                <header class="card-header">
+                    <h2>Your Portfolio</h2>
+                    <button class="btn btn-outline btn-sm" id="resetPortfolio">Reset Portfolio</button>
+                </header>
+                <section class="card-body">
+                    <section class="portfolio-metrics">
+                        <section class="metric">
+                            <h3>Virtual Balance</h3>
+                            <p class="metric-value" id="virtualBalance">$10,000.00</p>
+                        </section>
+                        <section class="metric">
+                            <h3>Portfolio Value</h3>
+                            <p class="metric-value" id="portfolioValue">$10,000.00</p>
+                        </section>
+                        <section class="metric">
+                            <h3>Total Return</h3>
+                            <p class="metric-value" id="totalReturn">$0.00 (0.0%)</p>
+                        </section>
+                    </section>
+                    <section class="portfolio-chart">
+                        <canvas id="portfolioChart"></canvas>
+                    </section>
+                </section>
             </article>
+
+            <section class="market-controls">
+                <article class="time-control card">
+                    <header class="card-header">
+                        <h2>Market Simulation</h2>
+                    </header>
+                    <section class="card-body">
+                        <section class="time-selector">
+                            <label for="timeScale" class="form-label">Time Scale</label>
+                            <select id="timeScale" class="form-control">
+                                <option value="1">Real-time (1x)</option>
+                                <option value="5">Fast (5x)</option>
+                                <option value="10">Very Fast (10x)</option>
+                            </select>
+                        </section>
+                        <section class="simulation-controls">
+                            <button class="btn btn-secondary" id="pauseSimulation">Pause</button>
+                            <button class="btn btn-primary" id="advanceDay">Advance 1 Day</button>
+                        </section>
+                    </section>
+                </article>
+
+                <article class="risk-control card">
+                    <header class="card-header">
+                        <h2>Risk Profile</h2>
+                    </header>
+                    <section class="card-body">
+                        <section class="risk-slider">
+                            <label for="riskTolerance" class="form-label">Risk Tolerance: <output id="riskValue">Medium</output></label>
+                            <input type="range" id="riskTolerance" min="1" max="5" value="3" class="form-control">
+                            <section class="risk-labels">
+                                <span>Conservative</span>
+                                <span>Balanced</span>
+                                <span>Aggressive</span>
+                            </section>
+                        </section>
+                        <section class="ai-recommendation">
+                            <h3>AI Recommendation</h3>
+                            <p id="aiRecommendation">Based on your risk profile, we recommend a diversified portfolio with 60% stocks, 30% bonds, and 10% cash.</p>
+                        </section>
+                    </section>
+                </article>
+            </section>
         </section>
 
-        <section class="stock-tracker">
-            <header class="section-header">
-                <h2>Real-Time Stock Data</h2>
-            </header>
-            <article class="stock-grid" id="stock-grid">
-                <!-- Stock data will be dynamically inserted here -->
-            </article>
+        <section class="market-content">
+            <section class="stocks-grid">
+                <header class="section-header">
+                    <h2>Available Stocks</h2>
+                    <section class="stock-filters">
+                        <input type="text" id="stockSearch" placeholder="Search stocks..." class="form-control">
+                        <select id="sectorFilter" class="form-control">
+                            <option value="">All Sectors</option>
+                            <option value="tech">Technology</option>
+                            <option value="finance">Finance</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="energy">Energy</option>
+                            <option value="sustainable">Sustainable</option>
+                        </select>
+                    </section>
+                </header>
+
+                <section class="stocks-list" id="stocksList">
+                    <!-- Stocks will be dynamically populated by JavaScript -->
+                </section>
+            </section>
+
+            <aside class="market-sidebar">
+                <article class="news-feed card">
+                    <header class="card-header">
+                        <h2>Market News</h2>
+                    </header>
+                    <section class="card-body">
+                        <ul class="news-list" id="newsList">
+                            <!-- News items will be dynamically populated by JavaScript -->
+                        </ul>
+                    </section>
+                </article>
+
+                <article class="ethical-investing card">
+                    <header class="card-header">
+                        <h2>Sustainable Investing</h2>
+                    </header>
+                    <section class="card-body">
+                        <p>Discover companies with strong environmental, social, and governance (ESG) practices.</p>
+                        <button class="btn btn-success" id="showEsgStocks">View ESG Stocks</button>
+                        <section class="esg-metrics" id="esgMetrics">
+                            <!-- ESG metrics will be dynamically populated by JavaScript -->
+                        </section>
+                    </section>
+                </article>
+
+                <article class="alerts-panel card">
+                    <header class="card-header">
+                        <h2>Market Alerts</h2>
+                    </header>
+                    <section class="card-body">
+                        <ul class="alerts-list" id="alertsList">
+                            <!-- Alerts will be dynamically populated by JavaScript -->
+                        </ul>
+                    </section>
+                </article>
+            </aside>
         </section>
 
-        <section class="paper-trading">
-            <header class="section-header">
-                <h2>Paper Trading Challenge</h2>
-                <p>Compete with other users to see who can make the most virtual profit.</p>
-            </header>
-            <a href="#" class="btn-primary">Join the Challenge</a>
+        <section class="trading-interface">
+            <article class="trade-panel card">
+                <header class="card-header">
+                    <h2>Trade Stocks</h2>
+                </header>
+                <section class="card-body">
+                    <form id="tradeForm">
+                        <section class="form-group">
+                            <label for="selectedStock" class="form-label">Stock</label>
+                            <select id="selectedStock" class="form-control" required>
+                                <option value="">Select a stock</option>
+                            </select>
+                        </section>
+                        <section class="form-group">
+                            <label for="tradeAction" class="form-label">Action</label>
+                            <select id="tradeAction" class="form-control" required>
+                                <option value="buy">Buy</option>
+                                <option value="sell">Sell</option>
+                            </select>
+                        </section>
+                        <section class="form-group">
+                            <label for="tradeQuantity" class="form-label">Quantity</label>
+                            <input type="number" id="tradeQuantity" class="form-control" min="1" value="1" required>
+                        </section>
+                        <section class="trade-preview">
+                            <p>Estimated Cost: <span id="estimatedCost">$0.00</span></p>
+                            <p>Available Balance: <span id="availableBalance">$10,000.00</span></p>
+                        </section>
+                        <button type="submit" class="btn btn-primary">Execute Trade</button>
+                    </form>
+                </section>
+            </article>
+
+            <article class="transaction-history card">
+                <header class="card-header">
+                    <h2>Transaction History</h2>
+                </header>
+                <section class="card-body">
+                    <table class="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Stock</th>
+                                <th>Action</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsBody">
+                            <!-- Transactions will be dynamically populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </section>
+            </article>
         </section>
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>Fin-Ed AI</span>
-                </div>
-                <div class="footer-links">
-                    <a href="courses.html" class="footer-link">Courses</a>
-                    <a href="calculators.html" class="footer-link">Calculators</a>
-                    <a href="credit-score.html" class="footer-link">Credit Score</a>
-                    <a href="budgeting.html" class="footer-link">Budgeting</a>
-                    <a href="security.html" class="footer-link">Security</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="sponsors">
-                <div class="container">
-                    <div class="section-header">
-                        <h2>Our Sponsors</h2>
-                    </div>
-                    <div class="sponsors-grid">
-                        <div class="sponsor-logo"><img src="" alt="Entelect"></div>
-                        <div class="sponsor-logo"><img src="" alt="MWR Cybersec"></div>
-                        <div class="sponsor-logo"><img src="" alt="Elenjical Solutions"></div>
-                        <div class="sponsor-logo"><img src="" alt="Pygio"></div>
-                        <div class="sponsor-logo"><img src="" alt="Analytical Technologies"></div>
-                        <div class="sponsor-logo"><img src="" alt="BET Software"></div>
-                        <div class="sponsor-logo"><img src="" alt="Oxfusion"></div>
-                        <div class="sponsor-logo"><img src="" alt="BSG"></div>
-                        <div class="sponsor-logo"><img src="" alt="Disraptor"></div>
-                        <div class="sponsor-logo"><img src="" alt="eHub"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Fin-Ed AI. All rights reserved.</p>
-            </div>
-        </div>
+        <section class="container">
+            <section class="footer-content">
+                <section class="footer-section">
+                    <section class="footer-logo">
+                        <i>📈</i> Fin-Ed AI
+                    </section>
+                    <p>Empowering financial literacy through AI-driven education and security.</p>
+                    <section class="social-links">
+                        <a href="#" aria-label="Facebook"><i>f</i></a>
+                        <a href="#" aria-label="Twitter"><i>t</i></a>
+                        <a href="#" aria-label="LinkedIn"><i>in</i></a>
+                    </section>
+                </section>
+                <section class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="landing.html">Home</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="security.html">Security</a></li>
+                    </ul>
+                </section>
+                <section class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="news.html">Market News</a></li>
+                        <li><a href="community.html">Community</a></li>
+                        <li><a href="calculators.html">Calculators</a></li>
+                        <li><a href="credit-score.html">Credit Health</a></li>
+                    </ul>
+                </section>
+                <section class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </section>
+            </section>
+            <section class="footer-bottom">
+                <p>&copy; 2023 Fin-Ed AI. All rights reserved. Part of the AI in Action Hackathon.</p>
+            </section>
+        </section>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/stock-market.js"></script>
 </body>
 </html>

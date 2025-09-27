@@ -1,51 +1,499 @@
+/* security.css - Security page specific styles */
+
+.security-page {
+    background-color: var(--bg-secondary);
+    min-height: 100vh;
+}
 
 .security-hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1550684376-ef6b53a15c4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-    color: #fff;
-    padding: 4rem 2rem;
-    text-align: center;
-    border-radius: 8px;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
 }
 
-.security-dashboard {
+.security-overview {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
-.security-feature {
-    background-color: #fff;
+.security-score-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.threat-monitoring {
-    margin-top: 3rem;
+.security-score-card header h2 {
+    margin-bottom: 0.5rem;
 }
 
-.threat-feed {
-    background-color: #fff;
+.security-score-card header p {
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+}
+
+.score-display {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.score-gauge {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.gauge-circle {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.gauge-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.gauge-fill {
+    stroke-dasharray: 339.292;
+    stroke-dashoffset: 74.644;
+    transition: stroke-dashoffset 1s ease;
+}
+
+.score-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.score-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: block;
+    line-height: 1;
+}
+
+.score-label {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.score-breakdown {
+    flex: 1;
+}
+
+.score-breakdown h3 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.breakdown-list {
+    list-style: none;
+}
+
+.breakdown-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+}
+
+.breakdown-label {
+    flex: 1;
+    font-size: 0.875rem;
+}
+
+.breakdown-bar {
+    width: 100px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.breakdown-fill {
+    height: 100%;
+    background: var(--success-color);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.breakdown-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    width: 2.5rem;
+    text-align: right;
+}
+
+.security-alerts {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.security-alerts header h2 {
+    margin-bottom: 0.5rem;
+}
+
+.security-alerts header p {
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+}
+
+.alerts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.alert-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.1);
+    transition: background 0.2s ease;
+}
+
+.alert-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.alert-item i {
+    font-size: 1.5rem;
+    width: 2rem;
+    text-align: center;
+}
+
+.alert-item.critical i {
+    color: var(--danger-color);
+}
+
+.alert-item.warning i {
+    color: var(--warning-color);
+}
+
+.alert-item.info i {
+    color: var(--primary-color);
+}
+
+.alert-content {
+    flex: 1;
+}
+
+.alert-content h3 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.alert-content p {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin-bottom: 0.25rem;
+}
+
+.alert-content time {
+    font-size: 0.75rem;
+    opacity: 0.6;
 }
 
 .security-tools {
-    margin-top: 3rem;
+    padding: 4rem 0;
+    background: var(--bg-primary);
 }
 
 .tools-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    margin-top: 2rem;
 }
 
 .tool-card {
-    background-color: #fff;
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+.tool-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tool-header i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.tool-header h3 {
+    margin-bottom: 0;
+}
+
+.tool-card p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.scan-results, .breach-results {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    display: none;
+}
+
+.scan-results.active, .breach-results.active {
+    display: block;
+}
+
+.result-safe {
+    background: rgba(16, 185, 129, 0.1);
+    border-left: 4px solid var(--success-color);
+}
+
+.result-warning {
+    background: rgba(245, 158, 11, 0.1);
+    border-left: 4px solid var(--warning-color);
+}
+
+.result-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 4px solid var(--danger-color);
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.result-header i {
+    font-size: 1.25rem;
+}
+
+.result-title {
+    font-weight: 600;
+}
+
+.result-details {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.simulator-container {
+    margin-top: 1.5rem;
+}
+
+.simulator-stage {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    margin-bottom: 1rem;
+}
+
+.simulator-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.challenge-stats {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+}
+
+.phishing-example {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+}
+
+.phishing-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.password-feedback {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.password-strength {
+    margin-top: 1rem;
+}
+
+.strength-bar {
+    height: 8px;
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.strength-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    width: 0%;
+    background: var(--danger-color);
+}
+
+.strength-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.security-education {
+    padding: 4rem 0;
+    background: var(--bg-secondary);
+}
+
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.education-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.education-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.education-card header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.education-card header i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.education-card header h3 {
+    margin-bottom: 0;
+}
+
+.education-card p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.security-resources {
+    padding: 4rem 0;
+    background: var(--bg-primary);
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.resource-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+}
+
+.resource-card header i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.resource-card header h3 {
+    margin-bottom: 1rem;
+}
+
+.resource-card p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .security-overview {
+        grid-template-columns: 1fr;
+    }
+    
+    .score-display {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .breakdown-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .breakdown-bar {
+        width: 100%;
+    }
+    
+    .alert-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .simulator-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .phishing-options {
+        grid-template-columns: 1fr;
+    }
 }

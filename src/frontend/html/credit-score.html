@@ -1,138 +1,310 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credit Score - Fin-Ed AI</title>
+    <title>Credit Score | Fin-Ed AI</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/credit-score.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="landing.html" class="nav-logo">
-                <i class="fas fa-lightbulb"></i>
+    <header class="app-header">
+        <nav class="navbar container">
+            <a href="landing.html" class="nav-brand">
+                <i>💳</i>
                 <span>Fin-Ed AI</span>
             </a>
-            <div class="nav-menu">
-                <a href="courses.html" class="nav-link">Courses</a>
-                <a href="calculators.html" class="nav-link">Calculators</a>
-                <a href="credit-score.html" class="nav-link">Credit Score</a>
-                <a href="budgeting.html" class="nav-link">Budgeting</a>
-                <a href="security.html" class="nav-link">Security</a>
-                <a href="stock-market.html" class="nav-link">Stock Market</a>
-                <a href="news.html" class="nav-link">News</a>
-                <a href="community.html" class="nav-link">Community</a>
-            </div>
-            <a href="auth.html" class="cta-btn">Get Started</a>
-        </div>
-    </nav>
-
-    <main>
-        <section class="credit-score-hero">
-            <article class="hero-text">
-                <h1>Understand Your Credit Score</h1>
-                <p>Take control of your financial health by understanding your credit score.</p>
-            </article>
-        </section>
-
-        <section class="credit-score-info">
-            <article class="credit-score-widget">
-                <h2>Your Credit Score</h2>
-                <p class="score">720</p>
-                <p class="rating">Good</p>
-                <button class="btn-primary">Get Full Report</button>
-            </article>
-
-            <article class="credit-factors">
-                <h2>Factors Affecting Your Score</h2>
-                <ul>
-                    <li>Payment History</li>
-                    <li>Credit Utilization</li>
-                    <li>Length of Credit History</li>
-                    <li>New Credit</li>
-                    <li>Credit Mix</li>
-                </ul>
-            </article>
-        </section>
-
-        <section class="credit-score-simulator">
-            <header class="section-header">
-                <h2>Credit Score Simulator</h2>
-                <p>See how your financial decisions could affect your credit score.</p>
-            </header>
-            <article class="simulator-form">
-                <form id="simulator">
-                    <label for="action">Action:</label>
-                    <select id="action">
-                        <option value="pay-off-loan">Pay Off Loan</option>
-                        <option value="new-credit-card">Apply for New Credit Card</option>
-                        <option value="missed-payment">Miss a Payment</option>
-                    </select>
-                    <button type="submit" class="btn-primary">Simulate</button>
-                </form>
-                <article id="simulation-result">
-                    <h3>Simulated Score: <span id="simulated-score">720</span></h3>
-                </article>
-            </article>
-        </section>
-
-        <section class="security-info">
-            <header class="section-header">
-                <h2>Protecting Your Credit Information</h2>
-            </header>
-            <p>Your credit information is sensitive. Here's how to protect it:</p>
-            <ul>
-                <li>Regularly review your credit reports.</li>
-                <li>Use strong, unique passwords for financial accounts.</li>
-                <li>Be wary of phishing emails and suspicious links.</li>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="budgeting.html" class="nav-link">Budgeting</a></li>
+                <li><a href="investing.html" class="nav-link">Investing</a></li>
+                <li><a href="security.html" class="nav-link">Security</a></li>
+                <li><a href="credit-score.html" class="nav-link active">Credit Score</a></li>
+                <li><a href="stock-market.html" class="nav-link">Stock Market</a></li>
+                <li><a href="courses.html" class="nav-link">Courses</a></li>
+                <li><a href="community.html" class="nav-link">Community</a></li>
+                <li><a href="news.html" class="nav-link">News</a></li>
             </ul>
+            <div class="nav-user">
+                <img src="../assets/user-avatar.jpg" alt="User Avatar" class="user-avatar">
+                <span>User</span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>Credit Score Dashboard</h1>
+            <p>Understand, monitor, and improve your credit health with AI-powered insights</p>
+        </section>
+
+        <section class="credit-overview">
+            <article class="card">
+                <header class="card-header">
+                    <h2>Your Credit Score</h2>
+                    <p>Last updated: <time id="lastUpdated">Loading...</time></p>
+                </header>
+                <section class="card-body">
+                    <div class="score-display">
+                        <div class="score-gauge-container">
+                            <canvas id="scoreGauge" width="300" height="200"></canvas>
+                            <div class="score-value" id="currentScore">-</div>
+                        </div>
+                        <div class="score-details">
+                            <div class="score-category" id="scoreCategory">Loading...</div>
+                            <div class="score-change" id="scoreChange">No change</div>
+                            <div class="score-explanation" id="scoreExplanation">
+                                Your credit score is calculated based on payment history, credit utilization, length of credit history, new credit, and credit mix.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="card-footer">
+                    <button class="btn btn-primary" id="refreshScore">Refresh Score</button>
+                    <button class="btn btn-outline" id="exportReport">Export Report</button>
+                </footer>
+            </article>
+        </section>
+
+        <section class="credit-factors">
+            <h2>Credit Score Factors</h2>
+            <p>See how different factors impact your credit score. Adjust the sliders to simulate changes.</p>
+            
+            <div class="factors-grid">
+                <article class="card factor-card">
+                    <header class="card-header">
+                        <h3>Payment History</h3>
+                        <span class="badge badge-primary" id="paymentHistoryBadge">35% Impact</span>
+                    </header>
+                    <section class="card-body">
+                        <div class="factor-control">
+                            <label for="paymentHistory" class="form-label">
+                                On-time payments: <span id="paymentHistoryValue">100%</span>
+                            </label>
+                            <input type="range" id="paymentHistory" min="0" max="100" value="100" class="factor-slider">
+                            <div class="factor-description">
+                                <p>Percentage of payments made on time. Late payments negatively impact your score.</p>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+
+                <article class="card factor-card">
+                    <header class="card-header">
+                        <h3>Credit Utilization</h3>
+                        <span class="badge badge-primary" id="creditUtilizationBadge">30% Impact</span>
+                    </header>
+                    <section class="card-body">
+                        <div class="factor-control">
+                            <label for="creditUtilization" class="form-label">
+                                Utilization rate: <span id="creditUtilizationValue">30%</span>
+                            </label>
+                            <input type="range" id="creditUtilization" min="0" max="100" value="30" class="factor-slider">
+                            <div class="factor-description">
+                                <p>Amount of credit used compared to your total available credit. Lower is better.</p>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+
+                <article class="card factor-card">
+                    <header class="card-header">
+                        <h3>Credit History Length</h3>
+                        <span class="badge badge-primary" id="historyLengthBadge">15% Impact</span>
+                    </header>
+                    <section class="card-body">
+                        <div class="factor-control">
+                            <label for="historyLength" class="form-label">
+                                Average account age: <span id="historyLengthValue">5 years</span>
+                            </label>
+                            <input type="range" id="historyLength" min="0" max="30" value="5" class="factor-slider">
+                            <div class="factor-description">
+                                <p>Longer credit history demonstrates more experience managing credit.</p>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+
+                <article class="card factor-card">
+                    <header class="card-header">
+                        <h3>Credit Mix</h3>
+                        <span class="badge badge-primary" id="creditMixBadge">10% Impact</span>
+                    </header>
+                    <section class="card-body">
+                        <div class="factor-control">
+                            <label for="creditMix" class="form-label">
+                                Diversity of credit: <span id="creditMixValue">Good</span>
+                            </label>
+                            <input type="range" id="creditMix" min="0" max="100" value="75" class="factor-slider">
+                            <div class="factor-description">
+                                <p>Having different types of credit (credit cards, loans, mortgage) shows you can handle various credit responsibilities.</p>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+
+                <article class="card factor-card">
+                    <header class="card-header">
+                        <h3>New Credit</h3>
+                        <span class="badge badge-primary" id="newCreditBadge">10% Impact</span>
+                    </header>
+                    <section class="card-body">
+                        <div class="factor-control">
+                            <label for="newCredit" class="form-label">
+                                Recent inquiries: <span id="newCreditValue">2</span>
+                            </label>
+                            <input type="range" id="newCredit" min="0" max="10" value="2" class="factor-slider">
+                            <div class="factor-description">
+                                <p>Opening several new credit accounts in a short period can be seen as higher risk.</p>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+            </div>
+            
+            <div class="simulation-controls">
+                <button class="btn btn-primary" id="applyChanges">Apply Changes to Score</button>
+                <button class="btn btn-secondary" id="resetFactors">Reset to Current Values</button>
+            </div>
+        </section>
+
+        <section class="ai-recommendations">
+            <h2>AI-Powered Recommendations</h2>
+            <p>Personalized suggestions to improve your credit score based on your current profile.</p>
+            
+            <div class="recommendations-grid">
+                <article class="card recommendation-card">
+                    <header class="card-header">
+                        <h3>Payment Optimization</h3>
+                        <span class="badge badge-success">High Impact</span>
+                    </header>
+                    <section class="card-body">
+                        <p id="paymentRecommendation">Based on your payment history, we recommend setting up automatic payments to avoid missed due dates.</p>
+                        <div class="recommendation-actions">
+                            <button class="btn btn-sm btn-success" id="setupAutopay">Set Up Autopay</button>
+                            <button class="btn btn-sm btn-outline" id="dismissPayment">Dismiss</button>
+                        </div>
+                    </section>
+                </article>
+
+                <article class="card recommendation-card">
+                    <header class="card-header">
+                        <h3>Credit Utilization</h3>
+                        <span class="badge badge-warning">Medium Impact</span>
+                    </header>
+                    <section class="card-body">
+                        <p id="utilizationRecommendation">Your credit utilization is at a healthy level. Consider requesting a credit limit increase to further improve your ratio.</p>
+                        <div class="recommendation-actions">
+                            <button class="btn btn-sm btn-success" id="requestIncrease">Request Increase</button>
+                            <button class="btn btn-sm btn-outline" id="dismissUtilization">Dismiss</button>
+                        </div>
+                    </section>
+                </article>
+
+                <article class="card recommendation-card">
+                    <header class="card-header">
+                        <h3>Credit Mix</h3>
+                        <span class="badge badge-info">Low Impact</span>
+                    </header>
+                    <section class="card-body">
+                        <p id="mixRecommendation">Adding a different type of credit, like a small installment loan, could slightly improve your score over time.</p>
+                        <div class="recommendation-actions">
+                            <button class="btn btn-sm btn-success" id="exploreLoans">Explore Options</button>
+                            <button class="btn btn-sm btn-outline" id="dismissMix">Dismiss</button>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </section>
+
+        <section class="security-alerts">
+            <h2>Security & Fraud Alerts</h2>
+            <p>Monitor potential threats to your credit profile. <span class="badge badge-primary" id="alertCount">0 active alerts</span></p>
+            
+            <article class="card security-card">
+                <header class="card-header">
+                    <h3>Credit Monitoring</h3>
+                    <div class="security-status" id="monitoringStatus">
+                        <i>🔒</i>
+                        <span>Active</span>
+                    </div>
+                </header>
+                <section class="card-body">
+                    <div class="alert-list" id="alertList">
+                        <p class="no-alerts">No suspicious activity detected. Your credit profile appears secure.</p>
+                    </div>
+                    <div class="security-actions">
+                        <button class="btn btn-outline" id="runSecurityCheck">Run Security Check</button>
+                        <button class="btn btn-primary" id="freezeCredit">Freeze Credit</button>
+                    </div>
+                </section>
+            </article>
+        </section>
+
+        <section class="credit-timeline">
+            <h2>Credit Score History</h2>
+            <p>Track your credit score progress over time.</p>
+            
+            <article class="card">
+                <section class="card-body">
+                    <div class="timeline-container">
+                        <canvas id="scoreTimeline" height="300"></canvas>
+                    </div>
+                </section>
+            </article>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>Fin-Ed AI</span>
-                </div>
-                <div class="footer-links">
-                    <a href="courses.html" class="footer-link">Courses</a>
-                    <a href="calculators.html" class="footer-link">Calculators</a>
-                    <a href="credit-score.html" class="footer-link">Credit Score</a>
-                    <a href="budgeting.html" class="footer-link">Budgeting</a>
-                    <a href="security.html" class="footer-link">Security</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="sponsors">
-                <div class="container">
-                    <div class="section-header">
-                        <h2>Our Sponsors</h2>
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i>💳</i>
+                        <span>Fin-Ed AI</span>
                     </div>
-                    <div class="sponsors-grid">
-                        <div class="sponsor-logo"><img src="" alt="Entelect"></div>
-                        <div class="sponsor-logo"><img src="" alt="MWR Cybersec"></div>
-                        <div class="sponsor-logo"><img src="" alt="Elenjical Solutions"></div>
-                        <div class="sponsor-logo"><img src="" alt="Pygio"></div>
-                        <div class="sponsor-logo"><img src="" alt="Analytical Technologies"></div>
-                        <div class="sponsor-logo"><img src="" alt="BET Software"></div>
-                        <div class="sponsor-logo"><img src="" alt="Oxfusion"></div>
-                        <div class="sponsor-logo"><img src="" alt="BSG"></div>
-                        <div class="sponsor-logo"><img src="" alt="Disraptor"></div>
-                        <div class="sponsor-logo"><img src="" alt="eHub"></div>
+                    <p>AI-powered financial education and security for everyone.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i>f</i></a>
+                        <a href="#" aria-label="Twitter"><i>t</i></a>
+                        <a href="#" aria-label="LinkedIn"><i>in</i></a>
                     </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="courses.html">Financial Courses</a></li>
+                        <li><a href="calculators.html">Calculators</a></li>
+                        <li><a href="news.html">News & Alerts</a></li>
+                        <li><a href="community.html">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Partners</h4>
+                    <ul>
+                        <li><a href="#">Entelect</a></li>
+                        <li><a href="#">MWR CyberSec</a></li>
+                        <li><a href="#">Elenjical Solutions</a></li>
+                        <li><a href="#">All Partners</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Fin-Ed AI. All rights reserved.</p>
+                <p>&copy; 2023 Fin-Ed AI. All rights reserved.</p>
             </div>
         </div>
     </footer>

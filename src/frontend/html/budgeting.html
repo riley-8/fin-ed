@@ -1,145 +1,225 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budgeting - Fin-Ed AI</title>
+    <title>Budgeting | Fin-Ed AI</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/budgeting.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="landing.html" class="nav-logo">
-                <i class="fas fa-lightbulb"></i>
-                <span>Fin-Ed AI</span>
+    <header class="app-header">
+        <nav class="navbar container">
+            <a href="landing.html" class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
+                Fin-Ed AI
             </a>
-            <div class="nav-menu">
-                <a href="courses.html" class="nav-link">Courses</a>
-                <a href="calculators.html" class="nav-link">Calculators</a>
-                <a href="credit-score.html" class="nav-link">Credit Score</a>
-                <a href="budgeting.html" class="nav-link">Budgeting</a>
-                <a href="security.html" class="nav-link">Security</a>
-                <a href="stock-market.html" class="nav-link">Stock Market</a>
-                <a href="news.html" class="nav-link">News</a>
-                <a href="community.html" class="nav-link">Community</a>
+            
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="budgeting.html" class="nav-link active">Budgeting</a></li>
+                <li><a href="investing.html" class="nav-link">Investing</a></li>
+                <li><a href="security.html" class="nav-link">Security</a></li>
+                <li><a href="learning.html" class="nav-link">Learning</a></li>
+                <li><a href="community.html" class="nav-link">Community</a></li>
+            </ul>
+            
+            <div class="nav-user">
+                <img src="../assets/user-avatar.jpg" alt="User Avatar" class="user-avatar">
+                <span>User</span>
             </div>
-            <a href="auth.html" class="cta-btn">Get Started</a>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <main>
+    <main class="container">
         <section class="budgeting-hero">
-            <article class="hero-text">
-                <h1>Create Your Budget</h1>
-                <p>Take control of your spending and save for your future.</p>
-            </article>
-        </section>
-
-        <section class="budgeting-tool">
-            <article class="income-expense">
-                <section class="income">
-                    <h2>Income</h2>
-                    <form id="income-form">
-                        <input type="text" id="income-source" placeholder="Source">
-                        <input type="number" id="income-amount" placeholder="Amount">
-                        <button type="submit" class="btn-primary">Add Income</button>
-                    </form>
-                    <ul id="income-list"></ul>
-                </section>
-                <section class="expenses">
-                    <h2>Expenses</h2>
-                    <form id="expense-form">
-                        <input type="text" id="expense-category" placeholder="Category">
-                        <input type="number" id="expense-amount" placeholder="Amount">
-                        <button type="submit" class="btn-primary">Add Expense</button>
-                    </form>
-                    <ul id="expense-list"></ul>
-                </section>
-            </article>
-            <article class="budget-summary">
-                <h2>Summary</h2>
-                <p>Total Income: <strong id="total-income">R0.00</strong></p>
-                <p>Total Expenses: <strong id="total-expenses">R0.00</strong></p>
-                <p>Remaining: <strong id="remaining-balance">R0.00</strong></p>
-            </article>
-        </section>
-
-        <section class="budgeting-challenges">
             <header class="section-header">
-                <h2>Budgeting Challenges</h2>
-                <p>Make budgeting fun with these gamified challenges.</p>
+                <h1>AI-Powered Budgeting</h1>
+                <p>Create personalized budgets with intelligent suggestions and real-time insights</p>
             </header>
-            <div class="challenges-grid">
-                <div class="challenge-card">
-                    <h3>No-Spend Week</h3>
-                    <p>Challenge yourself to a week of no unnecessary spending.</p>
-                    <button class="btn-secondary">Join Challenge</button>
-                </div>
-                <div class="challenge-card">
-                    <h3>Save R500 Challenge</h3>
-                    <p>Can you save R500 in a month? Track your progress here.</p>
-                    <button class="btn-secondary">Join Challenge</button>
-                </div>
-            </div>
+            
+            <section class="budget-controls">
+                <button class="btn btn-primary" id="newBudgetBtn">
+                    <i class="fas fa-plus"></i> Create New Budget
+                </button>
+                <button class="btn btn-outline" id="toggleInsights">
+                    <i class="fas fa-users"></i> Community Insights
+                </button>
+            </section>
         </section>
 
-        <section class="spending-insights">
-            <header class="section-header">
-                <h2>Spending Insights</h2>
-                <p>Visualize your spending habits to find new ways to save.</p>
-            </header>
-            <div class="chart-container">
-                <canvas id="spending-chart"></canvas>
-            </div>
+        <section class="budget-container">
+            <section class="budget-input-section">
+                <form class="budget-form card" id="budgetForm">
+                    <header class="card-header">
+                        <h2>Budget Setup</h2>
+                        <p>Enter your income and expenses to create a personalized budget</p>
+                    </header>
+                    
+                    <section class="card-body">
+                        <article class="form-group">
+                            <label for="income" class="form-label">Monthly Income</label>
+                            <input type="number" id="income" class="form-control" placeholder="Enter your monthly income" min="0" step="0.01">
+                        </article>
+                        
+                        <article class="expenses-section">
+                            <header class="expenses-header">
+                                <h3>Monthly Expenses</h3>
+                                <button type="button" class="btn btn-sm btn-outline" id="addExpenseBtn">
+                                    <i class="fas fa-plus"></i> Add Expense
+                                </button>
+                            </header>
+                            
+                            <section class="expenses-list" id="expensesList">
+                                <!-- Expenses will be dynamically added here -->
+                            </section>
+                        </article>
+                        
+                        <article class="form-group">
+                            <label for="savingsGoal" class="form-label">Monthly Savings Goal</label>
+                            <input type="number" id="savingsGoal" class="form-control" placeholder="Enter your savings goal" min="0" step="0.01">
+                            <small class="form-text">AI will suggest optimal savings based on your income</small>
+                        </article>
+                    </section>
+                    
+                    <footer class="card-footer">
+                        <button type="submit" class="btn btn-primary w-100">Generate Budget Plan</button>
+                    </footer>
+                </form>
+            </section>
+            
+            <section class="budget-visualization">
+                <article class="budget-summary card">
+                    <header class="card-header">
+                        <h2>Budget Summary</h2>
+                        <p>Your financial overview with AI recommendations</p>
+                    </header>
+                    
+                    <section class="card-body">
+                        <section class="summary-stats">
+                            <article class="stat-card">
+                                <h3>Total Income</h3>
+                                <p class="stat-value" id="totalIncome">$0.00</p>
+                            </article>
+                            
+                            <article class="stat-card">
+                                <h3>Total Expenses</h3>
+                                <p class="stat-value" id="totalExpenses">$0.00</p>
+                            </article>
+                            
+                            <article class="stat-card">
+                                <h3>Remaining</h3>
+                                <p class="stat-value" id="remainingAmount">$0.00</p>
+                            </article>
+                            
+                            <article class="stat-card">
+                                <h3>Savings Rate</h3>
+                                <p class="stat-value" id="savingsRate">0%</p>
+                            </article>
+                        </section>
+                        
+                        <section class="visualization-chart">
+                            <canvas id="budgetChart" width="400" height="200"></canvas>
+                        </section>
+                        
+                        <section class="ai-recommendations" id="aiRecommendations">
+                            <!-- AI recommendations will be dynamically added here -->
+                        </section>
+                    </section>
+                </article>
+                
+                <article class="community-insights card d-none" id="communityInsights">
+                    <header class="card-header">
+                        <h2>Community Insights</h2>
+                        <p>Compare your budget with anonymized community data</p>
+                    </header>
+                    
+                    <section class="card-body">
+                        <section class="insights-comparison">
+                            <article class="comparison-item">
+                                <h3>Your Housing Cost</h3>
+                                <p class="user-value" id="userHousing">0% of income</p>
+                                <p class="community-value">Community average: <span id="communityHousing">28%</span></p>
+                                <section class="comparison-bar">
+                                    <section class="user-bar" id="userHousingBar"></section>
+                                    <section class="community-bar" id="communityHousingBar"></section>
+                                </section>
+                            </article>
+                            
+                            <article class="comparison-item">
+                                <h3>Your Savings Rate</h3>
+                                <p class="user-value" id="userSavings">0% of income</p>
+                                <p class="community-value">Community average: <span id="communitySavings">15%</span></p>
+                                <section class="comparison-bar">
+                                    <section class="user-bar" id="userSavingsBar"></section>
+                                    <section class="community-bar" id="communitySavingsBar"></section>
+                                </section>
+                            </article>
+                            
+                            <article class="comparison-item">
+                                <h3>Your Food Spending</h3>
+                                <p class="user-value" id="userFood">0% of income</p>
+                                <p class="community-value">Community average: <span id="communityFood">12%</span></p>
+                                <section class="comparison-bar">
+                                    <section class="user-bar" id="userFoodBar"></section>
+                                    <section class="community-bar" id="communityFoodBar"></section>
+                                </section>
+                            </article>
+                        </section>
+                        
+                        <section class="insights-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <p>Based on community data, you could save an additional <strong id="potentialSavings">$0</strong> per month by optimizing your spending</p>
+                        </section>
+                    </section>
+                </article>
+            </section>
         </section>
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>Fin-Ed AI</span>
-                </div>
-                <div class="footer-links">
-                    <a href="courses.html" class="footer-link">Courses</a>
-                    <a href="calculators.html" class="footer-link">Calculators</a>
-                    <a href="credit-score.html" class="footer-link">Credit Score</a>
-                    <a href="budgeting.html" class="footer-link">Budgeting</a>
-                    <a href="security.html" class="footer-link">Security</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="sponsors">
-                <div class="container">
-                    <div class="section-header">
-                        <h2>Our Sponsors</h2>
-                    </div>
-                    <div class="sponsors-grid">
-                        <div class="sponsor-logo"><img src="" alt="Entelect"></div>
-                        <div class="sponsor-logo"><img src="" alt="MWR Cybersec"></div>
-                        <div class="sponsor-logo"><img src="" alt="Elenjical Solutions"></div>
-                        <div class="sponsor-logo"><img src="" alt="Pygio"></div>
-                        <div class="sponsor-logo"><img src="" alt="Analytical Technologies"></div>
-                        <div class="sponsor-logo"><img src="" alt="BET Software"></div>
-                        <div class="sponsor-logo"><img src="" alt="Oxfusion"></div>
-                        <div class="sponsor-logo"><img src="" alt="BSG"></div>
-                        <div class="sponsor-logo"><img src="" alt="Disraptor"></div>
-                        <div class="sponsor-logo"><img src="" alt="eHub"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Fin-Ed AI. All rights reserved.</p>
-            </div>
-        </div>
+        <section class="container">
+            <section class="footer-content">
+                <article class="footer-section">
+                    <a href="landing.html" class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        Fin-Ed AI
+                    </a>
+                    <p>Empowering financial literacy and cybersecurity through AI-powered education.</p>
+                    <section class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </section>
+                </article>
+                
+                <article class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="learning.html">Learning Center</a></li>
+                        <li><a href="calculators.html">Financial Calculators</a></li>
+                        <li><a href="news.html">News & Alerts</a></li>
+                        <article class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </article>
+            </section>
+            
+            <section class="footer-bottom">
+                <p>&copy; 2023 Fin-Ed AI. All rights reserved. Part of the AI in Action Hackathon.</p>
+            </section>
+        </section>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

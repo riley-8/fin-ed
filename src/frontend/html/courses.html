@@ -1,134 +1,230 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses - Fin-Ed AI</title>
+    <title>Financial Education Courses | Fin-Ed AI</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/courses.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="landing.html" class="nav-logo">
-                <i class="fas fa-lightbulb"></i>
-                <span>Fin-Ed AI</span>
+    <header class="app-header">
+        <nav class="navbar container">
+            <a href="landing.html" class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                Fin-Ed AI
             </a>
-            <div class="nav-menu">
-                <a href="courses.html" class="nav-link">Courses</a>
-                <a href="calculators.html" class="nav-link">Calculators</a>
-                <a href="credit-score.html" class="nav-link">Credit Score</a>
-                <a href="budgeting.html" class="nav-link">Budgeting</a>
-                <a href="security.html" class="nav-link">Security</a>
-                <a href="stock-market.html" class="nav-link">Stock Market</a>
-                <a href="news.html" class="nav-link">News</a>
-                <a href="community.html" class="nav-link">Community</a>
+            
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="budgeting.html" class="nav-link">Budgeting</a></li>
+                <li><a href="investing.html" class="nav-link">Investing</a></li>
+                <li><a href="security.html" class="nav-link">Security</a></li>
+                <li><a href="courses.html" class="nav-link active">Courses</a></li>
+                <li><a href="community.html" class="nav-link">Community</a></li>
+                <li><a href="news.html" class="nav-link">News</a></li>
+            </ul>
+            
+            <div class="nav-user">
+                <img src="../assets/user-avatar.jpg" alt="User Avatar" class="user-avatar">
+                <span>Learner</span>
             </div>
-            <a href="auth.html" class="cta-btn">Get Started</a>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <main>
-        <section class="courses-hero">
-            <article class="hero-text">
-                <h1>Our Courses</h1>
-                <p>Empower yourself with the knowledge to achieve financial freedom and security.</p>
-            </article>
+    <main class="container">
+        <section class="page-header">
+            <h1>Financial Education Center</h1>
+            <p>Master financial literacy and cybersecurity through interactive, AI-powered courses</p>
+            
+            <div class="learning-stats">
+                <div class="stat-card">
+                    <span class="stat-value" id="completedModules">0</span>
+                    <span class="stat-label">Modules Completed</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="totalPoints">0</span>
+                    <span class="stat-label">Points Earned</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="learningStreak">0</span>
+                    <span class="stat-label">Day Streak</span>
+                </div>
+            </div>
         </section>
 
-        <section class="courses-list">
-            <header class="section-header">
-                <h2>All Courses</h2>
-                <p>Browse our comprehensive library of financial and security courses.</p>
-            </header>
-            <article class="courses-grid">
-                <article class="course-card">
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Person writing on a whiteboard">
-                    </figure>
-                    <main>
-                        <h3>Financial Fundamentals</h3>
-                        <p>Master budgeting, saving, investing, and wealth-building strategies with interactive lessons and real-world scenarios.</p>
-                        <a href="#" class="btn-secondary">Start Course</a>
-                    </main>
-                </article>
-                <article class="course-card">
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Person using a laptop with a security icon on the screen">
-                    </figure>
-                    <main>
-                        <h3>Cybersecurity Training</h3>
-                        <p>Learn to identify and protect yourself from online scams, phishing attacks, and other digital threats to your financial assets.</p>
-                        <a href="#" class="btn-secondary">Start Course</a>
-                    </main>
-                </article>
-                <article class="course-card">
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Two people discussing investments over a tablet">
-                    </figure>
-                    <main>
-                        <h3>Advanced Investing</h3>
-                        <p>Explore advanced investment strategies, including stock market analysis, portfolio diversification, and risk management.</p>
-                        <a href="#" class="btn-secondary">Start Course</a>
-                    </main>
-                </article>
-                 <article class="course-card">
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="A person holding a piggy bank">
-                    </figure>
-                    <main>
-                        <h3>Retirement Planning</h3>
-                        <p>Plan for a secure and comfortable retirement with our comprehensive guide to retirement accounts, savings strategies, and more.</p>
-                        <a href="#" class="btn-secondary">Start Course</a>
-                    </main>
-                </article>
-            </article>
+        <section class="learning-progress">
+            <h2>Your Learning Journey</h2>
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span>Overall Progress</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ai-recommendation">
+            <h2>
+                <i class="fas fa-robot"></i>
+                AI Learning Recommendations
+            </h2>
+            <p id="aiRecommendationText">Based on your progress, we recommend starting with Budgeting Basics.</p>
+            <button class="btn btn-primary" id="startRecommendedBtn">
+                Start Recommended Course
+            </button>
+        </section>
+
+        <section class="course-categories">
+            <h2>Course Categories</h2>
+            <div class="category-filters">
+                <button class="filter-btn active" data-category="all">All Courses</button>
+                <button class="filter-btn" data-category="beginner">Beginner</button>
+                <button class="filter-btn" data-category="intermediate">Intermediate</button>
+                <button class="filter-btn" data-category="advanced">Advanced</button>
+                <button class="filter-btn" data-category="security">Cybersecurity</button>
+            </div>
+        </section>
+
+        <section class="courses-grid" id="coursesContainer">
+            <!-- Courses will be dynamically loaded here -->
+        </section>
+
+        <section class="quiz-section">
+            <h2>Knowledge Check</h2>
+            <div class="quiz-container" id="quizContainer">
+                <!-- Quiz will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <section class="achievements-section">
+            <h2>Your Achievements</h2>
+            <div class="badges-container" id="badgesContainer">
+                <!-- Badges will be dynamically loaded here -->
+            </div>
         </section>
     </main>
+
+    <!-- Course Modal -->
+    <dialog class="course-modal" id="courseModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h3 id="modalCourseTitle">Course Title</h3>
+                <div class="course-level" id="modalCourseLevel">Beginner</div>
+            </div>
+            <div class="modal-body">
+                <p id="modalCourseDescription">Course description will appear here.</p>
+                
+                <div class="lesson-list" id="lessonList">
+                    <!-- Lessons will be dynamically loaded here -->
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="startCourseBtn">Start Course</button>
+                    <button class="btn btn-outline" id="addToLearningPathBtn">Add to Learning Path</button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Lesson Modal -->
+    <dialog class="lesson-modal" id="lessonModal">
+        <div class="modal-content">
+            <button class="modal-close" id="lessonModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h3 id="lessonTitle">Lesson Title</h3>
+                <div class="lesson-progress">
+                    <span>Progress: </span>
+                    <span id="lessonProgress">0%</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="lesson-content" id="lessonContent">
+                    <!-- Lesson content will be dynamically loaded here -->
+                </div>
+                
+                <div class="lesson-interactive" id="lessonInteractive">
+                    <!-- Interactive elements will be dynamically loaded here -->
+                </div>
+                
+                <div class="lesson-navigation">
+                    <button class="btn btn-secondary" id="prevLessonBtn" disabled>
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <button class="btn btn-primary" id="nextLessonBtn">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <button class="btn btn-success" id="completeLessonBtn" style="display: none;">
+                        Complete Lesson
+                    </button>
+                </div>
+            </div>
+        </div>
+    </dialog>
 
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>Fin-Ed AI</span>
-                </div>
-                <div class="footer-links">
-                    <a href="courses.html" class="footer-link">Courses</a>
-                    <a href="calculators.html" class="footer-link">Calculators</a>
-                    <a href="credit-score.html" class="footer-link">Credit Score</a>
-                    <a href="budgeting.html" class="footer-link">Budgeting</a>
-                    <a href="security.html" class="footer-link">Security</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="sponsors">
-                <div class="container">
-                    <div class="section-header">
-                        <h2>Our Sponsors</h2>
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-graduation-cap"></i>
+                        Fin-Ed AI
                     </div>
-                    <div class="sponsors-grid">
-                        <div class="sponsor-logo"><img src="" alt="Entelect"></div>
-                        <div class="sponsor-logo"><img src="" alt="MWR Cybersec"></div>
-                        <div class="sponsor-logo"><img src="" alt="Elenjical Solutions"></div>
-                        <div class="sponsor-logo"><img src="" alt="Pygio"></div>
-                        <div class="sponsor-logo"><img src="" alt="Analytical Technologies"></div>
-                        <div class="sponsor-logo"><img src="" alt="BET Software"></div>
-                        <div class="sponsor-logo"><img src="" alt="Oxfusion"></div>
-                        <div class="sponsor-logo"><img src="" alt="BSG"></div>
-                        <div class="sponsor-logo"><img src="" alt="Disraptor"></div>
-                        <div class="sponsor-logo"><img src="" alt="eHub"></div>
+                    <p>Empowering financial literacy through AI-powered education.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
+                
+                <div class="footer-section">
+                    <h4>Learning Paths</h4>
+                    <ul>
+                        <li><a href="#">Budgeting Basics</a></li>
+                        <li><a href="#">Investment Fundamentals</a></li>
+                        <li><a href="#">Cybersecurity Essentials</a></li>
+                        <li><a href="#">Advanced Financial Planning</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Financial Calculators</a></li>
+                        <li><a href="#">Security Tools</a></li>
+                        <li><a href="#">Community Forum</a></li>
+                        <li><a href="#">Learning Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 Fin-Ed AI. All rights reserved.</p>
+                <p>&copy; 2023 Fin-Ed AI. All rights reserved. Part of the AI in Action Hackathon.</p>
             </div>
         </div>
     </footer>

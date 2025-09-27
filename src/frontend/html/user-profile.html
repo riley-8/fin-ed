@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fin-Ed AI | User Profile</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/user-profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="app-header">
+        <nav class="navbar container">
+            <a href="landing.html" class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>Fin-Ed AI</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="learning.html" class="nav-link">Learning</a></li>
+                <li><a href="security.html" class="nav-link">Security</a></li>
+                <li><a href="user-profile.html" class="nav-link active">Profile</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="profile-container">
+        <div class="container">
+            <header class="profile-header">
+                <div class="profile-avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=user123" alt="User Avatar" class="avatar-img">
+                    <button class="avatar-edit" aria-label="Edit avatar">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <div class="profile-info">
+                    <h1>Alex Johnson</h1>
+                    <p class="profile-title">Financial Learner • Security Enthusiast</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-value">85%</span>
+                            <span class="stat-label">Financial Literacy</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">92%</span>
+                            <span class="stat-label">Cyber Safety</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">15</span>
+                            <span class="stat-label">Badges Earned</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn btn-outline">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-cog"></i> Settings
+                    </button>
+                </div>
+            </header>
+
+            <div class="profile-content">
+                <aside class="profile-sidebar">
+                    <nav class="sidebar-nav">
+                        <button class="nav-item active" data-section="overview">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Overview</span>
+                        </button>
+                        <button class="nav-item" data-section="personal">
+                            <i class="fas fa-user"></i>
+                            <span>Personal Info</span>
+                        </button>
+                        <button class="nav-item" data-section="security">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Security</span>
+                        </button>
+                        <button class="nav-item" data-section="achievements">
+                            <i class="fas fa-trophy"></i>
+                            <span>Achievements</span>
+                        </button>
+                        <button class="nav-item" data-section="preferences">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>Preferences</span>
+                        </button>
+                    </nav>
+
+                    <section class="security-status">
+                        <h3>Security Status</h3>
+                        <div class="status-item">
+                            <i class="fas fa-check-circle status-good"></i>
+                            <span>Password Strength</span>
+                        </div>
+                        <div class="status-item">
+                            <i class="fas fa-check-circle status-good"></i>
+                            <span>2FA Enabled</span>
+                        </div>
+                        <div class="status-item">
+                            <i class="fas fa-exclamation-triangle status-warning"></i>
+                            <span>Recent Login Alert</span>
+                        </div>
+                        <div class="status-item">
+                            <i class="fas fa-check-circle status-good"></i>
+                            <span>Encryption Active</span>
+                        </div>
+                    </section>
+                </aside>
+
+                <section class="profile-main">
+                    <!-- Overview Section -->
+                    <article class="profile-section active" id="overview-section">
+                        <header class="section-header">
+                            <h2>Dashboard Overview</h2>
+                            <p>Your financial and security progress at a glance</p>
+                        </header>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h3>Financial Health Score</h3>
+                                    <span class="metric-trend up">+5%</span>
+                                </div>
+                                <div class="metric-value">78/100</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 78%"></div>
+                                </div>
+                                <p>Based on your budgeting, savings, and investment activity</p>
+                            </div>
+
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h3>Cyber Safety Score</h3>
+                                    <span class="metric-trend up">+3%</span>
+                                </div>
+                                <div class="metric-value">92/100</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 92%"></div>
+                                </div>
+                                <p>Evaluated from your security practices and threat detection</p>
+                            </div>
+
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h3>Learning Progress</h3>
+                                    <span class="metric-trend up">+12%</span>
+                                </div>
+                                <div class="metric-value">65%</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                                <p>Completed 8 of 12 financial literacy modules</p>
+                            </div>
+
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h3>Community Rank</h3>
+                                    <span class="metric-trend up">+2</span>
+                                </div>
+                                <div class="metric-value">#47</div>
+                                <div class="rank-badge">Top 10%</div>
+                                <p>Among 500+ active users in your region</p>
+                            </div>
+                        </div>
+
+                        <div class="charts-grid">
+                            <figure class="chart-card">
+                                <h3>Financial Progress</h3>
+                                <canvas id="financialChart" width="400" height="200"></canvas>
+                                <figcaption>Monthly tracking of your financial health indicators</figcaption>
+                            </figure>
+
+                            <figure class="chart-card">
+                                <h3>Security Activity</h3>
+                                <canvas id="securityChart" width="400" height="200"></canvas>
+                                <figcaption>Threats detected and prevented over time</figcaption>
+                            </figure>
+                        </div>
+
+                        <div class="recent-activity">
+                            <h3>Recent Activity</h3>
+                            <ul class="activity-list">
+                                <li class="activity-item">
+                                    <i class="fas fa-shield-check activity-icon security"></i>
+                                    <div class="activity-content">
+                                        <p>Successfully identified phishing attempt</p>
+                                        <span class="activity-time">2 hours ago</span>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <i class="fas fa-book activity-icon learning"></i>
+                                    <div class="activity-content">
+                                        <p>Completed "Investment Basics" module</p>
+                                        <span class="activity-time">1 day ago</span>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <i class="fas fa-chart-line activity-icon financial"></i>
+                                    <div class="activity-content">
+                                        <p>Updated monthly budget with AI suggestions</p>
+                                        <span class="activity-time">2 days ago</span>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <i class="fas fa-bell activity-icon alert"></i>
+                                    <div class="activity-content">
+                                        <p>Received security alert for suspicious login</p>
+                                        <span class="activity-time">3 days ago</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- Personal Info Section -->
+                    <article class="profile-section" id="personal-section">
+                        <header class="section-header">
+                            <h2>Personal Information</h2>
+                            <p>Manage your profile details and contact information</p>
+                        </header>
+
+                        <form class="info-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="fullName" class="form-label">Full Name</label>
+                                    <input type="text" id="fullName" class="form-control" value="Alex Johnson">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" id="email" class="form-control" value="alex.johnson@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-control" value="+1 (555) 123-4567">
+                                </div>
+                                <div class="form-group">
+                                    <label for="location" class="form-label">Location</label>
+                                    <input type="text" id="location" class="form-control" value="New York, USA">
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="bio" class="form-label">Bio</label>
+                                    <textarea id="bio" class="form-control" rows="4">Financial enthusiast passionate about cybersecurity and AI-driven financial education. Currently learning about investment strategies and threat detection.</textarea>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </article>
+
+                    <!-- Security Section -->
+                    <article class="profile-section" id="security-section">
+                        <header class="section-header">
+                            <h2>Security Settings</h2>
+                            <p>Manage your account security and privacy preferences</p>
+                        </header>
+
+                        <div class="security-settings">
+                            <div class="setting-group">
+                                <h3>Authentication</h3>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Two-Factor Authentication</h4>
+                                        <p>Add an extra layer of security to your account</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Biometric Authentication</h4>
+                                        <p>Use fingerprint or face recognition for login</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="setting-group">
+                                <h3>Privacy</h3>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Data Sharing for AI Improvement</h4>
+                                        <p>Help improve our AI models with anonymous data</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Public Profile</h4>
+                                        <p>Show your achievements in the community</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="setting-group">
+                                <h3>Data Management</h3>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Download Personal Data</h4>
+                                        <p>Get a copy of all your data in our system</p>
+                                    </div>
+                                    <button class="btn btn-outline">Request Download</button>
+                                </div>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Account Deletion</h4>
+                                        <p>Permanently delete your account and all data</p>
+                                    </div>
+                                    <button class="btn btn-danger">Delete Account</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="security-log">
+                            <h3>Recent Security Events</h3>
+                            <table class="log-table">
+                                <thead>
+                                    <tr>
+                                        <th>Event</th>
+                                        <th>Location</th>
+                                        <th>Device</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Successful Login</td>
+                                        <td>New York, USA</td>
+                                        <td>Chrome on Windows</td>
+                                        <td>2 hours ago</td>
+                                        <td><span class="status-badge success">Secure</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Failed Login Attempt</td>
+                                        <td>London, UK</td>
+                                        <td>Firefox on Linux</td>
+                                        <td>1 day ago</td>
+                                        <td><span class="status-badge warning">Blocked</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Password Changed</td>
+                                        <td>New York, USA</td>
+                                        <td>Chrome on Windows</td>
+                                        <td>3 days ago</td>
+                                        <td><span class="status-badge success">Secure</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>New Device Login</td>
+                                        <td>New York, USA</td>
+                                        <td>Safari on iPhone</td>
+                                        <td>1 week ago</td>
+                                        <td><span class="status-badge success">Verified</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <!-- Achievements Section -->
+                    <article class="profile-section" id="achievements-section">
+                        <header class="section-header">
+                            <h2>Achievements & Badges</h2>
+                            <p>Track your progress and celebrate your milestones</p>
+                        </header>
+
+                        <div class="achievements-grid">
+                            <div class="achievement-category">
+                                <h3>Financial Literacy</h3>
+                                <div class="badges-list">
+                                    <div class="badge earned">
+                                        <div class="badge-icon">
+                                            <i class="fas fa-piggy-bank"></i>
+                                        </div>
+                                        <div class="badge-info">
+                                            <h4>Savings Starter</h4>
+                                            <p>Created your first budget</p>
+                                        </div>
+                                    </div>
+                                    <div class="badge earned">
+                                        <div class="badge-icon">
+                                            <i class="fas fa-chart-line"></i>
+                                        </div>
+                                        <div class="badge-info">
+                                            <h4>Investment Novice</h4>
+                                            <p>Completed investment basics</p>
+                                        </div>
+                                    </div>
+                                    <div class="badge locked">
+                                        <div class="badge-icon">
+                                            <i class="fas fa-university"></i>
+                                        </div>
+                                        <div class="badge-info">
+                                            <h4>Financial Guru</h4>
+                                            <p>Master all advanced modules</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="achievement-category">
+                                <h3>Cyber Security</h3>
+                                <div class="badges-list">
+                                    <div class="badge earned">
+                                        <div class="badge-icon">
+                                            <i class="fas fa-shield-alt"></i>
+                                        </div>
+                                        <div class="badge-info">
+                                            <h4>Security Aware</h4>
+                                            <p>Enabled 2FA</p>
+                                        </div>
+                                    </div>
+                                    <div class="badge earned">
+                                        <div class="badge-icon">
+                                            <i class="fas fa-eye"></i>
+                                        </div>
+                                        <div class="badge-info">
+                                            <h4>Phishing Detective</h4>
+                                            <p>Identified 5 phishing attempts</p>
+                                        </div>
+                                    </div>
+                                    <div class="badge locked">
+                                        <div class="badge-icon">
+                                            <i class="fas fa-user-shield"></i>
+                                        </div>
+                                        <div class="badge-info">
+                                            <h4>Security Expert</h4>
+                                            <p>Complete all security challenges</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="achievement-category">
+                                <h3>Community</h3>
+                                <div class="badges-list">
+                                    <div class="badge earned">
+                                        <div class="badge-icon">
+                                            <i class="fas fa-comments"></i>
+                                        </div>
+                                        <div class="badge-info">
+                                            <h4>First Post</h4>
+                                            <p>Shared your first tip</p>
+                                        </div>
+                                    </div>
+                                    <div class="badge locked">
+                                        <div class="badge-icon">
+                                            <i class="fas fa-users"></i>
+                                        </div>
+                                        <div class="badge-info">
+                                            <h4>Community Leader</h4>
+                                            <p>Help 10 other users</p>
+                                        </div>
+                                    </div>
+                                    <div class="badge locked">
+                                        <div class="badge-icon">
+                                            <i class="fas fa-trophy"></i>
+                                        </div>
+                                        <div class="badge-info">
+                                            <h4>Top Contributor</h4>
+                                            <p>Reach top 10 in rankings</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="achievement-stats">
+                            <div class="stat-card">
+                                <h3>Total Points</h3>
+                                <div class="stat-value">1,250</div>
+                                <p>Earned from activities and achievements</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Badges Collected</h3>
+                                <div class="stat-value">5/12</div>
+                                <p>42% of available badges earned</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Current Streak</h3>
+                                <div class="stat-value">7 days</div>
+                                <p>Consistent learning and security practice</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Preferences Section -->
+                    <article class="profile-section" id="preferences-section">
+                        <header class="section-header">
+                            <h2>Preferences</h2>
+                            <p>Customize your Fin-Ed AI experience</p>
+                        </header>
+
+                        <div class="preferences-grid">
+                            <div class="preference-group">
+                                <h3>Notifications</h3>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Security Alerts</h4>
+                                        <p>Immediate notifications for security events</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Learning Reminders</h4>
+                                        <p>Daily or weekly learning progress updates</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Community Updates</h4>
+                                        <p>News from the community and new challenges</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="preference-group">
+                                <h3>Appearance</h3>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Theme</h4>
+                                        <p>Choose between light and dark mode</p>
+                                    </div>
+                                    <select class="form-control">
+                                        <option>Light</option>
+                                        <option>Dark</option>
+                                        <option>Auto</option>
+                                    </select>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Language</h4>
+                                        <p>Interface language preference</p>
+                                    </div>
+                                    <select class="form-control">
+                                        <option>English</option>
+                                        <option>Spanish</option>
+                                        <option>French</option>
+                                        <option>German</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="preference-group">
+                                <h3>Learning Preferences</h3>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Difficulty Level</h4>
+                                        <p>Adjust the complexity of learning materials</p>
+                                    </div>
+                                    <select class="form-control">
+                                        <option>Beginner</option>
+                                        <option selected>Intermediate</option>
+                                        <option>Advanced</option>
+                                    </select>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Learning Pace</h4>
+                                        <p>How quickly new content is introduced</p>
+                                    </div>
+                                    <select class="form-control">
+                                        <option>Relaxed</option>
+                                        <option selected>Moderate</option>
+                                        <option>Intensive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <section class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Fin-Ed AI</span>
+                    </div>
+                    <p>Empowering financial literacy through AI-driven security and education.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </section>
+                
+                <section class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="learning.html">Learning</a></li>
+                        <li><a href="security.html">Security Tools</a></li>
+                        <li><a href="community.html">Community</a></li>
+                    </ul>
+                </section>
+                
+                <section class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Financial Guides</a></li>
+                        <li><a href="#">Security Tips</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </section>
+                
+                <section class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </section>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Fin-Ed AI. All rights reserved. | AI in Action Hackathon</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/user-profile.js"></script>
+</body>
+</html>

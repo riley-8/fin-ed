@@ -1,78 +1,292 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | FinSecure</title>
+    <title>Fin-Ed AI | Secure Authentication</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/auth.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="dark">
-    <div class="auth-container">
-        <div class="auth-box">
-            <div class="auth-header">
-                <img src="https://placehold.co/100x40/334155/ffffff?text=FinSecure" alt="FinSecure Logo">
-                <h1 id="auth-title">Welcome Back</h1>
-                <p id="auth-subtitle">Login to access your financial dashboard.</p>
-            </div>
+<body>
+    <header class="app-header">
+        <nav class="navbar container">
+            <a href="landing.html" class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>Fin-Ed AI</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="landing.html" class="nav-link">Home</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="auth.html" class="nav-link active">Login</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
 
-            <!-- Login Form -->
-            <form id="login-form" class="auth-form">
-                <div class="input-group">
-                    <label for="login-email"><i class="fas fa-envelope"></i> Email</label>
-                    <input type="email" id="login-email" placeholder="you@example.com" required>
+    <main class="auth-container">
+        <section class="auth-hero">
+            <div class="container">
+                <div class="auth-content">
+                    <div class="auth-intro">
+                        <h1>Secure Access to Your Financial Future</h1>
+                        <p>Multi-factor authentication powered by AI threat detection keeps your data safe while you build financial literacy.</p>
+                        <ul class="security-features">
+                            <li><i class="fas fa-shield-check"></i> End-to-end encryption</li>
+                            <li><i class="fas fa-robot"></i> AI-powered threat detection</li>
+                            <li><i class="fas fa-mobile-alt"></i> Biometric authentication support</li>
+                            <li><i class="fas fa-bell"></i> Real-time security alerts</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="auth-forms">
+                        <!-- Login Form -->
+                        <form id="loginForm" class="auth-form active">
+                            <h2>Sign In to Your Account</h2>
+                            
+                            <div class="form-group">
+                                <label for="loginEmail" class="form-label">Email Address</label>
+                                <input type="email" id="loginEmail" class="form-control" required>
+                                <div class="form-text">We'll never share your email with anyone else.</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <input type="password" id="loginPassword" class="form-control" required>
+                                <div class="password-strength">
+                                    <div class="strength-meter">
+                                        <div class="strength-bar"></div>
+                                    </div>
+                                    <span class="strength-text">Password strength</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="d-flex justify-between align-center">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="rememberMe">
+                                        <span class="checkmark"></span>
+                                        Remember me
+                                    </label>
+                                    <a href="#" class="forgot-password">Forgot password?</a>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                            
+                            <div class="auth-divider">
+                                <span>or continue with</span>
+                            </div>
+                            
+                            <div class="social-auth">
+                                <button type="button" class="btn btn-outline w-100 social-btn google-btn">
+                                    <i class="fab fa-google"></i> Google
+                                </button>
+                                <button type="button" class="btn btn-outline w-100 social-btn microsoft-btn">
+                                    <i class="fab fa-microsoft"></i> Microsoft
+                                </button>
+                            </div>
+                            
+                            <p class="auth-switch">
+                                Don't have an account? <a href="#" id="showRegister">Sign up</a>
+                            </p>
+                        </form>
+                        
+                        <!-- Registration Form -->
+                        <form id="registerForm" class="auth-form">
+                            <h2>Create Your Account</h2>
+                            
+                            <div class="form-group">
+                                <label for="registerName" class="form-label">Full Name</label>
+                                <input type="text" id="registerName" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="registerEmail" class="form-label">Email Address</label>
+                                <input type="email" id="registerEmail" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="registerPassword" class="form-label">Password</label>
+                                <input type="password" id="registerPassword" class="form-control" required>
+                                <div class="password-strength">
+                                    <div class="strength-meter">
+                                        <div class="strength-bar"></div>
+                                    </div>
+                                    <span class="strength-text">Password strength</span>
+                                </div>
+                                <ul class="password-requirements">
+                                    <li data-requirement="length">At least 8 characters</li>
+                                    <li data-requirement="uppercase">One uppercase letter</li>
+                                    <li data-requirement="lowercase">One lowercase letter</li>
+                                    <li data-requirement="number">One number</li>
+                                    <li data-requirement="special">One special character</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" id="confirmPassword" class="form-control" required>
+                                <div class="password-match">
+                                    <i class="fas fa-check"></i> Passwords match
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="acceptTerms" required>
+                                    <span class="checkmark"></span>
+                                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">Create Account</button>
+                            
+                            <p class="auth-switch">
+                                Already have an account? <a href="#" id="showLogin">Sign in</a>
+                            </p>
+                        </form>
+                        
+                        <!-- 2FA Form -->
+                        <form id="twoFactorForm" class="auth-form">
+                            <h2>Two-Factor Authentication</h2>
+                            <p>For your security, we've sent a verification code to your email.</p>
+                            
+                            <div class="form-group">
+                                <label for="verificationCode" class="form-label">Verification Code</label>
+                                <div class="code-inputs">
+                                    <input type="text" maxlength="1" class="code-input">
+                                    <input type="text" maxlength="1" class="code-input">
+                                    <input type="text" maxlength="1" class="code-input">
+                                    <input type="text" maxlength="1" class="code-input">
+                                    <input type="text" maxlength="1" class="code-input">
+                                    <input type="text" maxlength="1" class="code-input">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <p class="resend-code">
+                                    Didn't receive the code? <a href="#" id="resendCode">Resend code</a>
+                                    <span class="countdown">(60s)</span>
+                                </p>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">Verify & Continue</button>
+                            
+                            <div class="alternative-auth">
+                                <p>Or verify using:</p>
+                                <button type="button" class="btn btn-outline w-100">
+                                    <i class="fas fa-fingerprint"></i> Biometric Authentication
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label for="login-password"><i class="fas fa-lock"></i> Password</label>
-                    <input type="password" id="login-password" placeholder="••••••••" required>
+            </div>
+        </section>
+        
+        <section class="security-demo">
+            <div class="container">
+                <h2>Advanced Security Features</h2>
+                <div class="security-grid">
+                    <article class="security-card">
+                        <div class="security-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3>AI Threat Detection</h3>
+                        <p>Our system continuously monitors for suspicious activity using behavioral analysis.</p>
+                        <div class="threat-level">
+                            <span>Current threat level:</span>
+                            <div class="threat-indicator">
+                                <span class="threat-dot low"></span>
+                                <span class="threat-dot medium"></span>
+                                <span class="threat-dot high"></span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="security-card">
+                        <div class="security-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Encrypted Data Storage</h3>
+                        <p>All your financial and personal data is encrypted using military-grade algorithms.</p>
+                        <div class="encryption-status">
+                            <span>Encryption status: <strong>Active</strong></span>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </article>
+                    
+                    <article class="security-card">
+                        <div class="security-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3>Real-time Alerts</h3>
+                        <p>Get instant notifications about security events and potential threats to your account.</p>
+                        <button class="btn btn-outline btn-sm">Test Alert System</button>
+                    </article>
                 </div>
-                <div class="form-options">
-                    <label class="remember-me">
-                        <input type="checkbox" id="remember">
-                        <span>Remember Me</span>
-                    </label>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Login</button>
-                <p class="auth-switch">
-                    Don't have an account? <a href="#" id="show-register">Sign Up</a>
-                </p>
-            </form>
+            </div>
+        </section>
+    </main>
 
-            <!-- Registration Form -->
-            <form id="register-form" class="auth-form hidden">
-                <div class="input-group">
-                    <label for="register-name"><i class="fas fa-user"></i> Full Name</label>
-                    <input type="text" id="register-name" placeholder="John Doe" required>
-                </div>
-                <div class="input-group">
-                    <label for="register-email"><i class="fas fa-envelope"></i> Email</label>
-                    <input type="email" id="register-email" placeholder="you@example.com" required>
-                </div>
-                <div class="input-group">
-                    <label for="register-password"><i class="fas fa-lock"></i> Password</label>
-                    <input type="password" id="register-password" placeholder="Create a strong password" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
-                <p class="auth-switch">
-                    Already have an account? <a href="#" id="show-login">Login</a>
-                </p>
-            </form>
-        </div>
-        <div class="auth-promo">
-            <div class="promo-content">
-                <h2>Secure Your Future, One Step at a Time.</h2>
-                <p>Join thousands of users who trust FinSecure to manage their finances, investments, and goals with confidence.</p>
-                <ul>
-                    <li><i class="fas fa-chart-line"></i> Track all your investments in real-time.</li>
-                    <li><i class="fas fa-piggy-bank"></i> Set and crush your financial goals.</li>
-                    <li><i class="fas fa-shield-alt"></i> Bank-level security to protect your data.</li>
-                </ul>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <section class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Fin-Ed AI</span>
+                    </div>
+                    <p>Empowering financial literacy through AI-driven security and education.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </section>
+                
+                <section class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="learning.html">Learning</a></li>
+                        <li><a href="security.html">Security Tools</a></li>
+                        <li><a href="community.html">Community</a></li>
+                    </ul>
+                </section>
+                
+                <section class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Financial Guides</a></li>
+                        <li><a href="#">Security Tips</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </section>
+                
+                <section class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </section>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Fin-Ed AI. All rights reserved. | AI in Action Hackathon</p>
             </div>
         </div>
-    </div>
+    </footer>
 
     <script src="../js/auth.js"></script>
 </body>

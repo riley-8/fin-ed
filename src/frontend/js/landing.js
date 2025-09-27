@@ -1,107 +1,45 @@
-// frontend/js/landing.js
+// landing.js - Landing page specific functionality
 class LandingPage {
     constructor() {
         this.init();
     }
 
     init() {
-        this.setupEventListeners();
-        this.setupScrollEffects();
+        this.setupNavigation();
         this.setupAnimations();
+        this.setupInteractiveElements();
+        this.setupChart();
     }
 
-    setupEventListeners() {
-        // Mobile menu toggle
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        
-        if (hamburger) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-        }
-
-        // Navigation links smooth scroll
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
+    setupNavigation() {
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                this.scrollToSection(targetId);
-                
-                // Close mobile menu if open
-                if (navMenu.classList.contains('active')) {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
         });
 
-        // Start Learning button - LINK TO DASHBOARD
-        const startLearningBtn = document.getElementById('start-learning');
-        if (startLearningBtn) {
-            startLearningBtn.addEventListener('click', () => {
-                window.location.href = '/dashboard';
+        // Mobile navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navToggle.classList.toggle('active');
             });
         }
-
-        // Learn More button - Watch Demo
-        const learnMoreBtn = document.getElementById('learn-more');
-        if (learnMoreBtn) {
-            learnMoreBtn.addEventListener('click', () => {
-                this.showDemoModal();
-            });
-        }
-
-        // Join Now button - LINK TO DASHBOARD
-        const joinNowBtn = document.getElementById('join-now');
-        if (joinNowBtn) {
-            joinNowBtn.addEventListener('click', () => {
-                window.location.href = '/dashboard';
-            });
-        }
-
-        // CTA button in navigation - LINK TO DASHBOARD
-        const ctaBtn = document.querySelector('.cta-btn');
-        if (ctaBtn) {
-            ctaBtn.addEventListener('click', () => {
-                window.location.href = '/dashboard';
-            });
-        }
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.nav-container') && navMenu.classList.contains('active')) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            }
-        });
     }
 
-    setupScrollEffects() {
-        // Navbar background on scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                navbar.style.boxShadow = 'none';
-            }
-
-            // Scroll indicator animation
-            const scrollIndicator = document.querySelector('.scroll-indicator');
-            if (scrollIndicator) {
-                if (window.scrollY > 50) {
-                    scrollIndicator.style.opacity = '0';
-                } else {
-                    scrollIndicator.style.opacity = '1';
-                }
-            }
-        });
-
-        // Intersection Observer for animations
+    setupAnimations() {
+        // Intersection Observer for scroll animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -116,106 +54,245 @@ class LandingPage {
         }, observerOptions);
 
         // Observe elements for animation
-        document.querySelectorAll('.feature-card, .security-item, .floating-card').forEach(el => {
+        document.querySelectorAll('.feature-card, .security-feature').forEach(el => {
             observer.observe(el);
         });
     }
 
-    setupAnimations() {
-        // Floating cards animation
-        const floatingCards = document.querySelectorAll('.floating-card');
-        floatingCards.forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.3}s`;
-        });
+    setupInteractiveElements() {
+        // Interactive dashboard preview
+        const dashboardPreview = document.querySelector('.dashboard-preview');
+        if (dashboardPreview) {
+            dashboardPreview.addEventListener('mouseenter', this.animateDashboard.bind(this));
+            dashboardPreview.addEventListener('mouseleave', this.resetDashboard.bind(this));
+        }
 
-        // Security rings animation
-        const rings = document.querySelectorAll('.ring');
-        rings.forEach((ring, index) => {
-            ring.style.animationDelay = `${index * 0.5}s`;
-        });
-    }
-
-    scrollToSection(sectionId) {
-        const section = document.getElementById(sectionId);
-        if (section) {
-            const offsetTop = section.offsetTop - 80; // Account for fixed navbar
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
+        // Security shield animation
+        const securityShield = document.querySelector('.security-shield');
+        if (securityShield) {
+            securityShield.addEventListener('click', this.activateShield.bind(this));
         }
     }
 
-    showDemoModal() {
-        // Simple demo modal for video playback
-        const modal = document.createElement('div');
-        modal.innerHTML = `
-            <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 2000;">
-                <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 600px; width: 90%; position: relative;">
-                    <button onclick="this.parentElement.parentElement.remove()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
-                    <h3 style="margin-bottom: 1rem;">FinSecure Demo</h3>
-                    <div style="background: #f5f5f5; padding: 2rem; text-align: center; border-radius: 5px;">
-                        <i class="fas fa-play-circle" style="font-size: 3rem; color: #2563eb; margin-bottom: 1rem;"></i>
-                        <p>Demo video coming soon!</p>
-                        <p style="font-size: 0.9rem; color: #666; margin-top: 1rem;">Experience the full features by visiting the dashboard.</p>
-                    </div>
-                    <button onclick="window.location.href='dashboard.html'" style="background: #2563eb; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 5px; cursor: pointer; margin-top: 1rem; width: 100%;">
-                        Try Dashboard Now
-                    </button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(modal);
+    animateDashboard() {
+        const metricValue = document.querySelector('.metric-value');
+        const metricChange = document.querySelector('.metric-change');
+        
+        if (metricValue && metricChange) {
+            // Simulate real-time updates
+            let value = 24573;
+            let change = 5.2;
+            
+            const interval = setInterval(() => {
+                value += Math.random() * 100 - 50;
+                change += Math.random() * 0.5 - 0.25;
+                
+                metricValue.textContent = `R${Math.round(value).toLocaleString()}`;
+                metricChange.textContent = `${change > 0 ? '+' : ''}${change.toFixed(1)}%`;
+                metricChange.className = `metric-change ${change >= 0 ? 'positive' : 'negative'}`;
+            }, 1000);
+            
+            this.dashboardInterval = interval;
+        }
+    }
+
+    resetDashboard() {
+        if (this.dashboardInterval) {
+            clearInterval(this.dashboardInterval);
+            this.dashboardInterval = null;
+        }
+        
+        const metricValue = document.querySelector('.metric-value');
+        const metricChange = document.querySelector('.metric-change');
+        
+        if (metricValue && metricChange) {
+            metricValue.textContent = 'R24,573';
+            metricChange.textContent = '+5.2%';
+            metricChange.className = 'metric-change positive';
+        }
+    }
+
+    activateShield() {
+        const shield = document.querySelector('.security-shield i');
+        const rings = document.querySelectorAll('.protection-ring');
+        
+        shield.style.color = '#10b981';
+        shield.classList.add('fa-beat');
+        
+        rings.forEach(ring => {
+            ring.style.borderColor = '#10b981';
+            ring.style.animationDuration = '1s';
+        });
+        
+        setTimeout(() => {
+            shield.style.color = '';
+            shield.classList.remove('fa-beat');
+            rings.forEach(ring => {
+                ring.style.borderColor = '';
+                ring.style.animationDuration = '';
+            });
+        }, 2000);
+    }
+
+    setupChart() {
+        const canvas = document.getElementById('hero-chart');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+
+        // Simple line chart animation
+        this.drawChart(ctx, canvas.width, canvas.height);
+    }
+
+    drawChart(ctx, width, height) {
+        const data = [30, 45, 35, 55, 40, 60, 50, 70, 65, 80, 75, 85];
+        const padding = 20;
+        const maxValue = Math.max(...data);
+        const xStep = (width - padding * 2) / (data.length - 1);
+        
+        ctx.clearRect(0, 0, width, height);
+        
+        // Draw grid
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.lineWidth = 1;
+        
+        for (let i = 0; i <= 5; i++) {
+            const y = padding + (height - padding * 2) * (i / 5);
+            ctx.beginPath();
+            ctx.moveTo(padding, y);
+            ctx.lineTo(width - padding, y);
+            ctx.stroke();
+        }
+        
+        // Draw line
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        
+        data.forEach((value, index) => {
+            const x = padding + index * xStep;
+            const y = height - padding - (value / maxValue) * (height - padding * 2);
+            
+            if (index === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        });
+        
+        ctx.stroke();
+        
+        // Draw points
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        data.forEach((value, index) => {
+            const x = padding + index * xStep;
+            const y = height - padding - (value / maxValue) * (height - padding * 2);
+            
+            ctx.beginPath();
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
+            ctx.fill();
+        });
     }
 }
 
-// Initialize the landing page when DOM is loaded
+// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    window.landing = new LandingPage();
+    new LandingPage();
 });
 
-// Add basic mobile menu styles via JavaScript
-const mobileMenuStyles = `
-    @media (max-width: 768px) {
-        .nav-menu {
+// Additional landing page utilities
+const landingUtils = {
+    // Newsletter signup
+    setupNewsletter: () => {
+        const form = document.getElementById('newsletter-form');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = form.querySelector('input[type="email"]').value;
+                landingUtils.subscribeNewsletter(email);
+            });
+        }
+    },
+
+    subscribeNewsletter: async (email) => {
+        if (!FinSecureUtils.validateEmail(email)) {
+            landingUtils.showNotification('Please enter a valid email address', 'error');
+            return;
+        }
+
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            landingUtils.showNotification('Successfully subscribed to newsletter!', 'success');
+        } catch (error) {
+            landingUtils.showNotification('Subscription failed. Please try again.', 'error');
+        }
+    },
+
+    showNotification: (message, type) => {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
+        
+        notification.style.cssText = `
             position: fixed;
-            top: 70px;
-            left: -100%;
-            width: 100%;
-            height: calc(100vh - 70px);
-            background: white;
-            flex-direction: column;
-            padding: 2rem;
-            transition: left 0.3s ease;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-md);
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        `;
+        
+        if (type === 'success') {
+            notification.style.background = 'var(--success-color)';
+        } else {
+            notification.style.background = 'var(--danger-color)';
         }
         
-        .nav-menu.active {
-            left: 0;
-        }
+        document.body.appendChild(notification);
         
-        .hamburger span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background: #333;
-            margin: 5px 0;
-            transition: 0.3s;
-        }
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
         
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    },
+
+    // Demo request form
+    setupDemoRequest: () => {
+        const form = document.getElementById('demo-form');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                landingUtils.requestDemo(formData);
+            });
         }
-        
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
+    },
+
+    requestDemo: async (formData) => {
+        try {
+            // Simulate demo request submission
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            landingUtils.showNotification('Demo request received! We\'ll contact you soon.', 'success');
+            document.getElementById('demo-form').reset();
+        } catch (error) {
+            landingUtils.showNotification('Request failed. Please try again.', 'error');
         }
     }
-`;
+};
 
-const styleSheet = document.createElement('style');
-styleSheet.textContent = mobileMenuStyles;
-document.head.appendChild(styleSheet);
+// Initialize newsletter and demo forms
+document.addEventListener('DOMContentLoaded', () => {
+    landingUtils.setupNewsletter();
+    landingUtils.setupDemoRequest();
+});

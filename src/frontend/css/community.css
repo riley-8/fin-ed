@@ -1,110 +1,463 @@
+/* community.css - Community page specific styles */
 
 .community-hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-    color: #fff;
-    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 3rem 2rem;
+    border-radius: var(--radius-xl);
+    margin: 2rem 0;
     text-align: center;
-    border-radius: 8px;
+}
+
+.community-hero header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.community-hero header p {
+    font-size: 1.125rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.community-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    min-width: 150px;
+}
+
+.stat-card h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .community-content {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 300px 1fr;
     gap: 2rem;
-    margin-top: 3rem;
+    margin: 2rem 0;
 }
 
-.forum-main {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.forum-controls {
+.community-sidebar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+    flex-direction: column;
+    gap: 2rem;
 }
 
-.search-bar {
-    display: flex;
-}
-
-.search-bar input {
-    width: 300px;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px 0 0 4px;
-}
-
-.search-bar button {
-    padding: 0.5rem 1rem;
-    border: 1px solid #007bff;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-}
-
-.topic-item {
-    padding: 1rem 0;
-    border-bottom: 1px solid #eee;
-}
-
-.topic-title a {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-    text-decoration: none;
-}
-
-.topic-meta {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.forum-sidebar > div {
-    background-color: #fff;
+.leaderboard-section, .weekly-challenge, .mentor-match {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
     padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
 }
 
-.trending-topics ul,
-.top-contributors ul {
+.leaderboard-section h2, .weekly-challenge h2, .mentor-match h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.leaderboard-list {
     list-style: none;
-    padding: 0;
 }
 
-.trending-topics li a,
-.contributor-info {
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.leaderboard-item:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-rank {
+    width: 24px;
+    height: 24px;
+    background: var(--bg-tertiary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 0.75rem;
+}
+
+.leaderboard-item:nth-child(1) .leaderboard-rank {
+    background: gold;
+    color: var(--text-primary);
+}
+
+.leaderboard-item:nth-child(2) .leaderboard-rank {
+    background: silver;
+    color: var(--text-primary);
+}
+
+.leaderboard-item:nth-child(3) .leaderboard-rank {
+    background: #cd7f32; /* bronze */
+    color: white;
+}
+
+.leaderboard-user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.user-avatar-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.leaderboard-score {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.challenge-card {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-top: 1rem;
+}
+
+.challenge-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.challenge-progress {
+    margin: 1rem 0;
+}
+
+.challenge-progress span {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
     display: block;
-    padding: 0.5rem 0;
-    color: #007bff;
-    text-decoration: none;
+    margin-top: 0.25rem;
 }
 
-.top-contributors li {
+.mentor-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    display: none;
+}
+
+.mentor-result.active {
+    display: block;
+}
+
+.mentor-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mentor-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.mentor-info h4 {
+    margin-bottom: 0.25rem;
+}
+
+.mentor-info p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.mentor-specialties {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.mentor-specialty {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+}
+
+.community-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.discussion-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 0;
 }
 
-.badge {
-    padding: 0.2rem 0.5rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    color: #fff;
+.topic-form {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
-.badge.gold {
-    background-color: #ffd700;
+.topic-form.hidden {
+    display: none;
 }
 
-.badge.silver {
-    background-color: #c0c0c0;
+.topic-form .form-control {
+    margin-bottom: 1rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.discussion-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.discussion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.discussion-item {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+}
+
+.discussion-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.discussion-header-small {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.discussion-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.discussion-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.discussion-author-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.discussion-date {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.discussion-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.discussion-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.discussion-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.discussion-content {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.discussion-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.discussion-tag {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+}
+
+.discussion-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.vote-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.vote-btn:hover {
+    color: var(--primary-color);
+}
+
+.vote-btn.active {
+    color: var(--primary-color);
+}
+
+.vote-btn.upvote.active {
+    color: var(--success-color);
+}
+
+.vote-btn.downvote.active {
+    color: var(--danger-color);
+}
+
+/* Responsive design */
+@media (max-width: 968px) {
+    .community-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .community-sidebar {
+        order: 2;
+    }
+    
+    .community-main {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .community-hero {
+        padding: 2rem 1rem;
+    }
+    
+    .community-hero header h1 {
+        font-size: 2rem;
+    }
+    
+    .discussion-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .discussion-header-small {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .discussion-stats {
+        align-self: flex-start;
+    }
+    
+    .community-stats {
+        gap: 1rem;
+    }
+    
+    .stat-card {
+        min-width: 120px;
+        padding: 1rem;
+    }
+    
+    .stat-card h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Animation for new content */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.discussion-item.new {
+    animation: fadeInUp 0.5s ease;
+}
+
+/* Badge styles for community achievements */
+.achievement-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: linear-gradient(135deg, var(--accent-color), #f97316);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
 }

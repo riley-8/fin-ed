@@ -1,138 +1,386 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security - Fin-Ed AI</title>
+    <title>Security Center | Fin-Ed AI</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/security.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="landing.html" class="nav-logo">
-                <i class="fas fa-lightbulb"></i>
+    <header class="app-header">
+        <nav class="navbar container">
+            <a href="landing.html" class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
                 <span>Fin-Ed AI</span>
             </a>
-            <div class="nav-menu">
-                <a href="courses.html" class="nav-link">Courses</a>
-                <a href="calculators.html" class="nav-link">Calculators</a>
-                <a href="credit-score.html" class="nav-link">Credit Score</a>
-                <a href="budgeting.html" class="nav-link">Budgeting</a>
-                <a href="security.html" class="nav-link">Security</a>
-                <a href="stock-market.html" class="nav-link">Stock Market</a>
-                <a href="news.html" class="nav-link">News</a>
-                <a href="community.html" class="nav-link">Community</a>
-            </div>
-            <a href="auth.html" class="cta-btn">Get Started</a>
-        </div>
-    </nav>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="budgeting.html" class="nav-link">Budgeting</a></li>
+                <li><a href="investing.html" class="nav-link">Investing</a></li>
+                <li><a href="security.html" class="nav-link active">Security</a></li>
+                <li><a href="courses.html" class="nav-link">Courses</a></li>
+                <li><a href="community.html" class="nav-link">Community</a></li>
+                <li><a href="news.html" class="nav-link">News</a></li>
+                <li class="nav-user">
+                    <img src="../assets/user-avatar.jpg" alt="User Avatar" class="user-avatar">
+                    <span>User</span>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-    <main>
+    <main class="security-page">
         <section class="security-hero">
-            <article class="hero-text">
-                <h1>Protect Your Finances</h1>
-                <p>Learn how to stay safe from fraud and scams.</p>
-            </article>
+            <div class="container">
+                <header class="section-header">
+                    <h1>Security Center</h1>
+                    <p>Protect your finances with AI-powered security tools and educational resources</p>
+                </header>
+                
+                <section class="security-overview">
+                    <article class="security-score-card">
+                        <header>
+                            <h2>Your Security Score</h2>
+                            <p>Updated in real-time based on your security practices</p>
+                        </header>
+                        <div class="score-display">
+                            <div class="score-gauge">
+                                <div class="gauge-circle">
+                                    <svg viewBox="0 0 120 120" class="gauge-svg">
+                                        <circle cx="60" cy="60" r="54" fill="none" stroke="#e5e7eb" stroke-width="12"></circle>
+                                        <circle cx="60" cy="60" r="54" fill="none" stroke="#10b981" stroke-width="12" stroke-linecap="round" class="gauge-fill"></circle>
+                                    </svg>
+                                    <div class="score-value">
+                                        <span class="score-number">78</span>
+                                        <span class="score-label">/100</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="score-breakdown">
+                                <h3>Security Breakdown</h3>
+                                <ul class="breakdown-list">
+                                    <li>
+                                        <span class="breakdown-label">Password Strength</span>
+                                        <div class="breakdown-bar">
+                                            <div class="breakdown-fill" style="width: 85%"></div>
+                                        </div>
+                                        <span class="breakdown-value">85%</span>
+                                    </li>
+                                    <li>
+                                        <span class="breakdown-label">2FA Enabled</span>
+                                        <div class="breakdown-bar">
+                                            <div class="breakdown-fill" style="width: 100%"></div>
+                                        </div>
+                                        <span class="breakdown-value">100%</span>
+                                    </li>
+                                    <li>
+                                        <span class="breakdown-label">Phishing Awareness</span>
+                                        <div class="breakdown-bar">
+                                            <div class="breakdown-fill" style="width: 65%"></div>
+                                        </div>
+                                        <span class="breakdown-value">65%</span>
+                                    </li>
+                                    <li>
+                                        <span class="breakdown-label">Data Privacy</span>
+                                        <div class="breakdown-bar">
+                                            <div class="breakdown-fill" style="width: 70%"></div>
+                                        </div>
+                                        <span class="breakdown-value">70%</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="security-alerts">
+                        <header>
+                            <h2>Security Alerts</h2>
+                            <p>Recent security events and recommendations</p>
+                        </header>
+                        <div class="alerts-container">
+                            <div class="alert-item critical">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <div class="alert-content">
+                                    <h3>Potential Phishing Attempt Detected</h3>
+                                    <p>We detected suspicious activity in your recent emails. Review now.</p>
+                                    <time datetime="2023-06-15">15 minutes ago</time>
+                                </div>
+                                <button class="btn btn-sm">Review</button>
+                            </div>
+                            <div class="alert-item warning">
+                                <i class="fas fa-shield-alt"></i>
+                                <div class="alert-content">
+                                    <h3>Password Strength Recommendation</h3>
+                                    <p>Consider updating passwords that haven't been changed in 6+ months.</p>
+                                    <time datetime="2023-06-14">Yesterday</time>
+                                </div>
+                                <button class="btn btn-sm">Update</button>
+                            </div>
+                            <div class="alert-item info">
+                                <i class="fas fa-info-circle"></i>
+                                <div class="alert-content">
+                                    <h3>New Security Feature Available</h3>
+                                    <p>Try our new SafeLink Scanner to check URLs for potential threats.</p>
+                                    <time datetime="2023-06-13">2 days ago</time>
+                                </div>
+                                <button class="btn btn-sm">Try Now</button>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </div>
         </section>
 
-        <section class="security-tips">
-            <header class="section-header">
-                <h2>Top Security Tips</h2>
-            </header>
-            <article class="tips-grid">
-                <article class="tip-card">
-                    <h3>Use Strong Passwords</h3>
-                    <p>Create unique and complex passwords for each of your online accounts.</p>
-                </article>
-                <article class="tip-card">
-                    <h3>Enable Two-Factor Authentication</h3>
-                    <p>Add an extra layer of security to your accounts by enabling 2FA.</p>
-                </article>
-                <article class="tip-card">
-                    <h3>Beware of Phishing Scams</h3>
-                    <p>Learn to recognize and avoid phishing emails, texts, and phone calls.</p>
-                </article>
-                <article class="tip-card">
-                    <h3>Secure Your Wi-Fi Network</h3>
-                    <p>Protect your home Wi-Fi network with a strong password and security settings.</p>
-                </article>
-            </article>
+        <section class="security-tools">
+            <div class="container">
+                <header class="section-header">
+                    <h2>Security Tools</h2>
+                    <p>Interactive tools to test and improve your cybersecurity knowledge</p>
+                </header>
+                
+                <section class="tools-grid">
+                    <article class="tool-card" id="safelinkScanner">
+                        <header class="tool-header">
+                            <i class="fas fa-link"></i>
+                            <h3>SafeLink Scanner</h3>
+                        </header>
+                        <p>Check any URL for potential phishing attempts or security risks</p>
+                        <form class="scanner-form">
+                            <div class="form-group">
+                                <label for="urlInput" class="form-label">Enter URL to scan</label>
+                                <input type="url" id="urlInput" class="form-control" placeholder="https://example.com" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-search"></i> Scan URL
+                            </button>
+                        </form>
+                        <div class="scan-results" id="scanResults">
+                            <!-- Results will be populated by JavaScript -->
+                        </div>
+                    </article>
+                    
+                    <article class="tool-card" id="phishingSimulator">
+                        <header class="tool-header">
+                            <i class="fas fa-fish"></i>
+                            <h3>Phishing Challenge</h3>
+                        </header>
+                        <p>Test your ability to identify phishing attempts in this interactive game</p>
+                        <div class="simulator-container">
+                            <div class="simulator-stage" id="simulatorStage">
+                                <p>Click start to begin the phishing identification challenge</p>
+                            </div>
+                            <div class="simulator-controls">
+                                <button class="btn btn-primary" id="startChallenge">Start Challenge</button>
+                                <div class="challenge-stats" id="challengeStats">
+                                    <span>Score: <strong id="challengeScore">0</strong></span>
+                                    <span>Round: <strong id="challengeRound">0/5</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="tool-card" id="breachChecker">
+                        <header class="tool-header">
+                            <i class="fas fa-database"></i>
+                            <h3>Data Breach Checker</h3>
+                        </header>
+                        <p>Check if your email has been involved in any known data breaches</p>
+                        <form class="breach-form">
+                            <div class="form-group">
+                                <label for="emailInput" class="form-label">Enter email to check</label>
+                                <input type="email" id="emailInput" class="form-control" placeholder="your.email@example.com" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-shield-alt"></i> Check Breaches
+                            </button>
+                        </form>
+                        <div class="breach-results" id="breachResults">
+                            <!-- Results will be populated by JavaScript -->
+                        </div>
+                    </article>
+                    
+                    <article class="tool-card" id="passwordAnalyzer">
+                        <header class="tool-header">
+                            <i class="fas fa-key"></i>
+                            <h3>Password Strength Analyzer</h3>
+                        </header>
+                        <p>Test your password strength and get recommendations for improvement</p>
+                        <form class="password-form">
+                            <div class="form-group">
+                                <label for="passwordInput" class="form-label">Enter password to analyze</label>
+                                <input type="password" id="passwordInput" class="form-control" placeholder="Enter a password" required>
+                                <div class="password-feedback" id="passwordFeedback">
+                                    <!-- Feedback will be populated by JavaScript -->
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-secondary" id="generatePassword">
+                                <i class="fas fa-magic"></i> Generate Strong Password
+                            </button>
+                        </form>
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strengthFill"></div>
+                            </div>
+                            <span class="strength-label" id="strengthLabel">Very Weak</span>
+                        </div>
+                    </article>
+                </section>
+            </div>
         </section>
 
-        <section class="latest-scams">
-            <header class="section-header">
-                <h2>Latest Scams</h2>
-                <p>Stay informed about the latest scams and how to avoid them.</p>
-            </header>
-            <article class="scams-list">
-                <div class="scam-alert">
-                    <h4>Impersonation Scams</h4>
-                    <p>Scammers are impersonating government agencies and well-known companies to trick people into giving away their personal information.</p>
-                </div>
-                <div class="scam-alert">
-                    <h4>Investment Scams</h4>
-                    <p>Beware of investment opportunities that promise high returns with little to no risk. These are often scams.</p>
-                </div>
-            </article>
+        <section class="security-education">
+            <div class="container">
+                <header class="section-header">
+                    <h2>Security Education</h2>
+                    <p>Learn how to protect yourself from common cyber threats</p>
+                </header>
+                
+                <section class="education-grid">
+                    <article class="education-card">
+                        <header>
+                            <i class="fas fa-envelope"></i>
+                            <h3>Phishing Awareness</h3>
+                        </header>
+                        <p>Learn to identify suspicious emails and messages that attempt to steal your information.</p>
+                        <ul class="feature-list">
+                            <li>Recognize common phishing tactics</li>
+                            <li>Verify sender authenticity</li>
+                            <li>Report suspicious messages</li>
+                        </ul>
+                        <button class="btn btn-outline">Start Lesson</button>
+                    </article>
+                    
+                    <article class="education-card">
+                        <header>
+                            <i class="fas fa-lock"></i>
+                            <h3>Password Security</h3>
+                        </header>
+                        <p>Create strong, unique passwords and manage them securely across all your accounts.</p>
+                        <ul class="feature-list">
+                            <li>Password best practices</li>
+                            <li>Password manager benefits</li>
+                            <li>Two-factor authentication setup</li>
+                        </ul>
+                        <button class="btn btn-outline">Start Lesson</button>
+                    </article>
+                    
+                    <article class="education-card">
+                        <header>
+                            <i class="fas fa-wifi"></i>
+                            <h3>Public Wi-Fi Safety</h3>
+                        </header>
+                        <p>Understand the risks of public networks and how to protect your data when using them.</p>
+                        <ul class="feature-list">
+                            <li>Risks of unsecured networks</li>
+                            <li>Using VPNs effectively</li>
+                            <li>Safe browsing practices</li>
+                        </ul>
+                        <button class="btn btn-outline">Start Lesson</button>
+                    </article>
+                </section>
+            </div>
         </section>
 
-        <section class="report-scam">
-            <header class="section-header">
-                <h2>Report a Scam</h2>
-                <p>If you've been targeted by a scam, report it to the authorities to help protect others.</p>
-            </header>
-            <a href="#" class="btn-primary">Report a Scam</a>
+        <section class="security-resources">
+            <div class="container">
+                <header class="section-header">
+                    <h2>Additional Resources</h2>
+                    <p>Tools and information to further enhance your cybersecurity</p>
+                </header>
+                
+                <section class="resources-grid">
+                    <article class="resource-card">
+                        <header>
+                            <i class="fas fa-book"></i>
+                            <h3>Security Glossary</h3>
+                        </header>
+                        <p>Comprehensive dictionary of cybersecurity terms and concepts.</p>
+                        <button class="btn btn-secondary">Browse Terms</button>
+                    </article>
+                    
+                    <article class="resource-card">
+                        <header>
+                            <i class="fas fa-chart-bar"></i>
+                            <h3>Threat Intelligence</h3>
+                        </header>
+                        <p>Real-time data on emerging cyber threats and attack patterns.</p>
+                        <button class="btn btn-secondary">View Reports</button>
+                    </article>
+                    
+                    <article class="resource-card">
+                        <header>
+                            <i class="fas fa-headset"></i>
+                            <h3>Security Support</h3>
+                        </header>
+                        <p>Get help with security concerns or report potential threats.</p>
+                        <button class="btn btn-secondary">Contact Support</button>
+                    </article>
+                </section>
+            </div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>Fin-Ed AI</span>
-                </div>
-                <div class="footer-links">
-                    <a href="courses.html" class="footer-link">Courses</a>
-                    <a href="calculators.html" class="footer-link">Calculators</a>
-                    <a href="credit-score.html" class="footer-link">Credit Score</a>
-                    <a href="budgeting.html" class="footer-link">Budgeting</a>
-                    <a href="security.html" class="footer-link">Security</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="sponsors">
-                <div class="container">
-                    <div class="section-header">
-                        <h2>Our Sponsors</h2>
+            <section class="footer-content">
+                <article class="footer-section">
+                    <a href="landing.html" class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Fin-Ed AI</span>
+                    </a>
+                    <p>Empowering financial literacy through AI-driven security and education.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
                     </div>
-                    <div class="sponsors-grid">
-                        <div class="sponsor-logo"><img src="" alt="Entelect"></div>
-                        <div class="sponsor-logo"><img src="" alt="MWR Cybersec"></div>
-                        <div class="sponsor-logo"><img src="" alt="Elenjical Solutions"></div>
-                        <div class="sponsor-logo"><img src="" alt="Pygio"></div>
-                        <div class="sponsor-logo"><img src="" alt="Analytical Technologies"></div>
-                        <div class="sponsor-logo"><img src="" alt="BET Software"></div>
-                        <div class="sponsor-logo"><img src="" alt="Oxfusion"></div>
-                        <div class="sponsor-logo"><img src="" alt="BSG"></div>
-                        <div class="sponsor-logo"><img src="" alt="Disraptor"></div>
-                        <div class="sponsor-logo"><img src="" alt="eHub"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Fin-Ed AI. All rights reserved.</p>
-            </div>
+                </article>
+                
+                <article class="footer-section">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="budgeting.html">Budgeting</a></li>
+                        <li><a href="investing.html">Investing</a></li>
+                        <li><a href="security.html">Security</a></li>
+                    </ul>
+                </article>
+                
+                <article class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="community.html">Community</a></li>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </article>
+                
+                <article class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </article>
+            </section>
+            
+            <section class="footer-bottom">
+                <p>&copy; 2023 Fin-Ed AI. All rights reserved.</p>
+            </section>
         </div>
     </footer>
 
     <script src="../js/security.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>

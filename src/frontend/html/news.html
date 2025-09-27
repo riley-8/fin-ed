@@ -1,108 +1,231 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial News - Fin-Ed AI</title>
+    <title>Financial & Security News | Fin-Ed AI</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/news.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="landing.html" class="nav-logo">
-                <i class="fas fa-lightbulb"></i>
+    <header class="app-header">
+        <nav class="navbar container">
+            <a href="landing.html" class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
                 <span>Fin-Ed AI</span>
             </a>
-            <div class="nav-menu">
-                <a href="courses.html" class="nav-link">Courses</a>
-                <a href="calculators.html" class="nav-link">Calculators</a>
-                <a href="credit-score.html" class="nav-link">Credit Score</a>
-                <a href="budgeting.html" class="nav-link">Budgeting</a>
-                <a href="security.html" class="nav-link">Security</a>
-                <a href="stock-market.html" class="nav-link">Stock Market</a>
-                <a href="news.html" class="nav-link">News</a>
-                <a href="community.html" class="nav-link">Community</a>
+            
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="budgeting.html" class="nav-link">Budgeting</a></li>
+                <li><a href="investing.html" class="nav-link">Investing</a></li>
+                <li><a href="security.html" class="nav-link">Security</a></li>
+                <li><a href="courses.html" class="nav-link">Courses</a></li>
+                <li><a href="community.html" class="nav-link">Community</a></li>
+                <li><a href="news.html" class="nav-link active">News</a></li>
+                <li><a href="stock-market.html" class="nav-link">Stock Market</a></li>
+            </ul>
+            
+            <div class="nav-user">
+                <img src="../assets/user-avatar.jpg" alt="User Avatar" class="user-avatar">
+                <span>User</span>
             </div>
-            <a href="auth.html" class="cta-btn">Get Started</a>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <main>
+    <main class="container">
         <section class="news-hero">
-            <article class="hero-text">
-                <h1>Financial News</h1>
-                <p>Stay up-to-date with the latest market trends and headlines.</p>
+            <header class="section-header">
+                <h1>Financial & Security News</h1>
+                <p>Stay informed with AI-curated financial opportunities and cybersecurity threats</p>
+            </header>
+            
+            <section class="news-controls">
+                <form class="news-search">
+                    <input type="text" id="searchInput" placeholder="Search news articles..." class="form-control">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </form>
+                
+                <section class="filter-controls">
+                    <h2>Filter by Category</h2>
+                    <menu class="category-filters">
+                        <li><button class="filter-btn active" data-category="all">All News</button></li>
+                        <li><button class="filter-btn" data-category="finance">Finance</button></li>
+                        <li><button class="filter-btn" data-category="security">Security</button></li>
+                        <li><button class="filter-btn" data-category="scam-alerts">Scam Alerts</button></li>
+                        <li><button class="filter-btn" data-category="sustainability">Sustainability</button></li>
+                    </menu>
+                </section>
+                
+                <section class="region-selector">
+                    <label for="regionSelect" class="form-label">Region-specific alerts:</label>
+                    <select id="regionSelect" class="form-control">
+                        <option value="global">Global</option>
+                        <option value="south-africa">South Africa</option>
+                        <option value="europe">Europe</option>
+                        <option value="north-america">North America</option>
+                        <option value="asia">Asia</option>
+                    </select>
+                </section>
+            </section>
+        </section>
+        
+        <section class="featured-alert" id="featuredAlert" style="display: none;">
+            <article class="alert-card critical">
+                <header class="alert-header">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Critical Security Alert</h2>
+                    <time datetime="" class="alert-time"></time>
+                </header>
+                <p class="alert-content"></p>
+                <footer class="alert-actions">
+                    <button class="btn btn-danger" id="scanAlertLink">
+                        <i class="fas fa-shield-alt"></i> Scan Related Links
+                    </button>
+                    <button class="btn btn-outline" id="dismissAlert">
+                        Dismiss Alert
+                    </button>
+                </footer>
             </article>
         </section>
-
-        <section class="news-articles">
-            <header class="section-header">
-                <h2>Latest Headlines</h2>
-            </header>
-            <article class="articles-grid" id="articles-grid">
-                <!-- News articles will be dynamically inserted here -->
-            </article>
+        
+        <section class="news-content">
+            <aside class="news-sidebar">
+                <section class="trending-topics">
+                    <h2>Trending Topics</h2>
+                    <ul id="trendingList">
+                        <!-- Will be populated by JS -->
+                    </ul>
+                </section>
+                
+                <section class="scam-statistics">
+                    <h2>Scam Statistics</h2>
+                    <figure class="stats-card">
+                        <figcaption>This Week</figcaption>
+                        <div class="stat-item">
+                            <label>Phishing Attempts</label>
+                            <progress value="0" max="100" class="progress progress-danger" id="phishingStat"></progress>
+                            <span class="stat-value" id="phishingValue">0%</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Investment Scams</label>
+                            <progress value="0" max="100" class="progress progress-warning" id="investmentStat"></progress>
+                            <span class="stat-value" id="investmentValue">0%</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Identity Theft</label>
+                            <progress value="0" max="100" class="progress progress-danger" id="identityStat"></progress>
+                            <span class="stat-value" id="identityValue">0%</span>
+                        </div>
+                    </figure>
+                </section>
+                
+                <section class="quick-scanner">
+                    <h2>Quick Link Scanner</h2>
+                    <form class="scanner-form">
+                        <input type="url" id="quickScanInput" placeholder="Enter URL to scan" class="form-control">
+                        <button type="button" id="quickScanBtn" class="btn btn-primary btn-sm">
+                            <i class="fas fa-search"></i> Scan
+                        </button>
+                    </form>
+                    <output id="scanResult" class="scan-result"></output>
+                </section>
+            </aside>
+            
+            <section class="news-feed">
+                <header class="feed-header">
+                    <h2>Latest News</h2>
+                    <button class="btn btn-outline" id="refreshNews">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </header>
+                
+                <section class="loading-state" id="loadingState">
+                    <div class="spinner"></div>
+                    <p>Loading latest news...</p>
+                </section>
+                
+                <section class="news-grid" id="newsGrid">
+                    <!-- News articles will be populated by JavaScript -->
+                </section>
+                
+                <footer class="feed-footer">
+                    <button class="btn btn-secondary" id="loadMoreBtn">
+                        <i class="fas fa-plus"></i> Load More Articles
+                    </button>
+                </footer>
+            </section>
         </section>
-
-        <section class="market-sentiment">
-            <header class="section-header">
-                <h2>Market Sentiment Analysis</h2>
-            </header>
-            <div class="sentiment-analysis">
-                <p>Overall Market Sentiment: <strong id="market-sentiment">Neutral</strong></p>
-            </div>
+        
+        <section class="news-insights">
+            <h2>AI-Powered Insights</h2>
+            <section class="insights-grid" id="insightsGrid">
+                <!-- AI insights will be populated by JavaScript -->
+            </section>
         </section>
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>Fin-Ed AI</span>
-                </div>
-                <div class="footer-links">
-                    <a href="courses.html" class="footer-link">Courses</a>
-                    <a href="calculators.html" class="footer-link">Calculators</a>
-                    <a href="credit-score.html" class="footer-link">Credit Score</a>
-                    <a href="budgeting.html" class="footer-link">Budgeting</a>
-                    <a href="security.html" class="footer-link">Security</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="sponsors">
-                <div class="container">
-                    <div class="section-header">
-                        <h2>Our Sponsors</h2>
-                    </div>
-                    <div class="sponsors-grid">
-                        <div class="sponsor-logo"><img src="" alt="Entelect"></div>
-                        <div class="sponsor-logo"><img src="" alt="MWR Cybersec"></div>
-                        <div class="sponsor-logo"><img src="" alt="Elenjical Solutions"></div>
-                        <div class="sponsor-logo"><img src="" alt="Pygio"></div>
-                        <div class="sponsor-logo"><img src="" alt="Analytical Technologies"></div>
-                        <div class="sponsor-logo"><img src="" alt="BET Software"></div>
-                        <div class="sponsor-logo"><img src="" alt="Oxfusion"></div>
-                        <div class="sponsor-logo"><img src="" alt="BSG"></div>
-                        <div class="sponsor-logo"><img src="" alt="Disraptor"></div>
-                        <div class="sponsor-logo"><img src="" alt="eHub"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Fin-Ed AI. All rights reserved.</p>
-            </div>
-        </div>
+        <section class="container">
+            <section class="footer-content">
+                <article class="footer-section">
+                    <header class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Fin-Ed AI</span>
+                    </header>
+                    <p>Empowering financial literacy and cybersecurity through AI-driven education.</p>
+                    <menu class="social-links">
+                        <li><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                    </menu>
+                </article>
+                
+                <article class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="landing.html">Home</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="security.html">Security Tools</a></li>
+                    </ul>
+                </article>
+                
+                <article class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="community.html">Community</a></li>
+                        <li><a href="news.html">News & Alerts</a></li>
+                        <li><a href="stock-market.html">Stock Market</a></li>
+                        <li><a href="calculators.html">Financial Calculators</a></li>
+                    </ul>
+                </article>
+                
+                <article class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </article>
+            </section>
+            
+            <section class="footer-bottom">
+                <p>&copy; 2023 Fin-Ed AI. All rights reserved. Part of the AI in Action Hackathon.</p>
+            </section>
+        </section>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/news.js"></script>
 </body>
 </html>

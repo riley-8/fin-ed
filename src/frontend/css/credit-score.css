@@ -1,39 +1,366 @@
+/* credit-score.css - Credit Score page specific styles */
 
-.credit-score-hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1579621970582-9a58b2d18b57?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-    color: #fff;
-    padding: 4rem 2rem;
+.page-header {
     text-align: center;
-    border-radius: 8px;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
 }
 
-.credit-score-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+.page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
-.credit-score-widget,
-.credit-factors,
-.personalized-tips,
-.simulation-tool {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.page-header p {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-.credit-score-widget .score {
-    font-size: 4rem;
+/* Score Display */
+.score-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    padding: 2rem 0;
+}
+
+.score-gauge-container {
+    position: relative;
+    width: 300px;
+    height: 200px;
+}
+
+.score-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
     font-weight: 700;
-    color: #007bff;
-    margin: 1rem 0;
+    color: var(--text-primary);
 }
 
-.credit-score-widget .rating {
+.score-details {
+    flex: 1;
+    max-width: 400px;
+}
+
+.score-category {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #28a745;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.score-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.score-change.positive {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+}
+
+.score-change.negative {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+.score-change.neutral {
+    background-color: rgba(107, 114, 128, 0.1);
+    color: var(--text-secondary);
+}
+
+.score-explanation {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Credit Factors */
+.credit-factors {
+    margin: 4rem 0;
+}
+
+.factors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.factor-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.factor-control {
+    margin-bottom: 1rem;
+}
+
+.factor-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--bg-tertiary);
+    outline: none;
+    margin: 1rem 0;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.factor-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.factor-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+.factor-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.factor-slider::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+.factor-description {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.simulation-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+/* AI Recommendations */
+.ai-recommendations {
+    margin: 4rem 0;
+}
+
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.recommendation-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recommendation-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+/* Security Alerts */
+.security-alerts {
+    margin: 4rem 0;
+}
+
+.security-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.security-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.security-status.active {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+}
+
+.security-status.warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning-color);
+}
+
+.security-status.danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+.alert-list {
+    min-height: 100px;
+}
+
+.alert-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 0.5rem;
+    background: var(--bg-secondary);
+}
+
+.alert-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.alert-icon.info {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-color);
+}
+
+.alert-icon.warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning-color);
+}
+
+.alert-icon.danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+.alert-content {
+    flex: 1;
+}
+
+.alert-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.alert-description {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.alert-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.no-alerts {
+    text-align: center;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 2rem;
+}
+
+.security-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Credit Timeline */
+.credit-timeline {
+    margin: 4rem 0;
+}
+
+.timeline-container {
+    height: 300px;
+    position: relative;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .score-display {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .score-gauge-container {
+        width: 250px;
+        height: 167px;
+    }
+    
+    .factors-grid,
+    .recommendations-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .simulation-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .security-actions {
+        flex-direction: column;
+    }
+    
+    .alert-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .alert-actions {
+        justify-content: center;
+    }
+}
+
+/* Animation for score changes */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.score-update {
+    animation: pulse 0.5s ease-in-out;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .factor-slider {
+        background: var(--bg-tertiary);
+    }
+    
+    .factor-description {
+        background: var(--bg-secondary);
+    }
 }

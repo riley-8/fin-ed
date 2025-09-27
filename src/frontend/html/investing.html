@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Investing | Fin-Ed AI</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/investing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="app-header">
+        <nav class="navbar container">
+            <a href="landing.html" class="nav-brand">
+                <i class="fas fa-chart-line"></i>
+                Fin-Ed AI
+            </a>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="budgeting.html" class="nav-link">Budgeting</a></li>
+                <li><a href="investing.html" class="nav-link active">Investing</a></li>
+                <li><a href="security.html" class="nav-link">Security</a></li>
+                <li><a href="learning.html" class="nav-link">Learning</a></li>
+                <li><a href="community.html" class="nav-link">Community</a></li>
+                <li><a href="news.html" class="nav-link">News</a></li>
+                <li class="nav-user">
+                    <img src="../assets/user-avatar.jpg" alt="User Avatar" class="user-avatar">
+                    <span>My Profile</span>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>AI-Powered Investing</h1>
+            <p>Make informed investment decisions with personalized AI recommendations based on your financial goals and risk tolerance.</p>
+        </section>
+
+        <section class="investing-controls">
+            <article class="risk-assessment card">
+                <header class="card-header">
+                    <h2>Risk Tolerance Assessment</h2>
+                    <p>Adjust the slider to match your comfort level with investment risk</p>
+                </header>
+                <section class="card-body">
+                    <div class="risk-slider-container">
+                        <div class="risk-labels">
+                            <span>Conservative</span>
+                            <span>Moderate</span>
+                            <span>Aggressive</span>
+                        </div>
+                        <input type="range" id="riskSlider" min="1" max="10" value="5" class="risk-slider">
+                        <div class="risk-indicator">
+                            <span id="riskLevel">Moderate</span>
+                            <span id="riskScore">5/10</span>
+                        </div>
+                    </div>
+                    
+                    <div class="investment-goals">
+                        <h3>Investment Goals</h3>
+                        <div class="goals-grid">
+                            <label class="goal-option">
+                                <input type="radio" name="goal" value="retirement" checked>
+                                <span class="goal-card">
+                                    <i class="fas fa-umbrella-beach"></i>
+                                    <span>Retirement</span>
+                                </span>
+                            </label>
+                            <label class="goal-option">
+                                <input type="radio" name="goal" value="education">
+                                <span class="goal-card">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <span>Education</span>
+                                </span>
+                            </label>
+                            <label class="goal-option">
+                                <input type="radio" name="goal" value="wealth">
+                                <span class="goal-card">
+                                    <i class="fas fa-piggy-bank"></i>
+                                    <span>Wealth Building</span>
+                                </span>
+                            </label>
+                            <label class="goal-option">
+                                <input type="radio" name="goal" value="home">
+                                <span class="goal-card">
+                                    <i class="fas fa-home"></i>
+                                    <span>Home Purchase</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="time-horizon">
+                        <h3>Investment Time Horizon</h3>
+                        <select id="timeHorizon" class="form-control">
+                            <option value="short">Short-term (1-3 years)</option>
+                            <option value="medium" selected>Medium-term (3-7 years)</option>
+                            <option value="long">Long-term (7+ years)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="ethical-toggle">
+                        <h3>Ethical Investing Preference</h3>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="ethicalToggle">
+                            <span class="slider"></span>
+                            <span class="toggle-label">Prioritize sustainable and ethical investments</span>
+                        </label>
+                    </div>
+                </section>
+            </article>
+
+            <article class="investment-amount card">
+                <header class="card-header">
+                    <h2>Investment Amount</h2>
+                    <p>Enter how much you'd like to invest initially and monthly</p>
+                </header>
+                <section class="card-body">
+                    <div class="amount-inputs">
+                        <div class="form-group">
+                            <label for="initialInvestment" class="form-label">Initial Investment</label>
+                            <div class="input-with-icon">
+                                <span class="currency-symbol">$</span>
+                                <input type="number" id="initialInvestment" class="form-control" value="5000" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="monthlyContribution" class="form-label">Monthly Contribution</label>
+                            <div class="input-with-icon">
+                                <span class="currency-symbol">$</span>
+                                <input type="number" id="monthlyContribution" class="form-control" value="200" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    <button id="updatePortfolio" class="btn btn-primary w-100">Update Portfolio Recommendations</button>
+                </section>
+            </article>
+        </section>
+
+        <section class="portfolio-recommendations">
+            <header class="section-header">
+                <h2>AI-Powered Portfolio Recommendations</h2>
+                <p>Based on your risk profile and investment goals</p>
+            </header>
+            
+            <div class="portfolio-cards" id="portfolioCards">
+                <!-- Portfolio cards will be dynamically generated by JavaScript -->
+            </div>
+            
+            <div class="portfolio-comparison">
+                <h3>Portfolio Comparison</h3>
+                <div class="comparison-chart" id="comparisonChart">
+                    <!-- Chart will be rendered by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section class="growth-projections card">
+            <header class="card-header">
+                <h2>Growth Projections</h2>
+                <p>See how your investment could grow over time with different scenarios</p>
+            </header>
+            <section class="card-body">
+                <div class="projection-controls">
+                    <div class="form-group">
+                        <label for="projectionYears" class="form-label">Projection Period (Years)</label>
+                        <input type="range" id="projectionYears" min="5" max="30" value="10" class="form-control">
+                        <span id="yearsValue">10 years</span>
+                    </div>
+                    <div class="scenario-toggle">
+                        <button class="btn btn-outline active" data-scenario="optimistic">Optimistic</button>
+                        <button class="btn btn-outline" data-scenario="moderate">Moderate</button>
+                        <button class="btn btn-outline" data-scenario="conservative">Conservative</button>
+                    </div>
+                </div>
+                <div class="projection-chart" id="projectionChart">
+                    <!-- Projection chart will be rendered by JavaScript -->
+                </div>
+            </section>
+        </section>
+
+        <section class="educational-content">
+            <header class="section-header">
+                <h2>Investment Education</h2>
+                <p>Learn key concepts to make informed decisions</p>
+            </header>
+            
+            <div class="education-cards">
+                <article class="education-card card">
+                    <header class="card-header">
+                        <h3>Diversification</h3>
+                        <i class="fas fa-sitemap"></i>
+                    </header>
+                    <section class="card-body">
+                        <p>Spreading investments across different assets to reduce risk. Our AI helps you build a diversified portfolio tailored to your goals.</p>
+                        <button class="btn btn-outline">Learn More</button>
+                    </section>
+                </article>
+                
+                <article class="education-card card">
+                    <header class="card-header">
+                        <h3>Risk vs. Return</h3>
+                        <i class="fas fa-balance-scale"></i>
+                    </header>
+                    <section class="card-body">
+                        <p>Understanding the relationship between potential returns and the risk you're willing to take. Higher potential returns usually come with higher risk.</p>
+                        <button class="btn btn-outline">Learn More</button>
+                    </section>
+                </article>
+                
+                <article class="education-card card">
+                    <header class="card-header">
+                        <h3>Compound Interest</h3>
+                        <i class="fas fa-chart-line"></i>
+                    </header>
+                    <section class="card-body">
+                        <p>Your money earns returns, and those returns then earn returns themselves. This powerful effect accelerates wealth growth over time.</p>
+                        <button class="btn btn-outline">Learn More</button>
+                    </section>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-chart-line"></i>
+                        Fin-Ed AI
+                    </div>
+                    <p>Empowering financial literacy through AI-driven education and tools.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="learning.html">Learning Center</a></li>
+                        <li><a href="calculators.html">Financial Calculators</a></li>
+                        <li><a href="news.html">Market News</a></li>
+                        <li><a href="community.html">Community Forum</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Partners</h4>
+                    <ul>
+                        <li><a href="#">Entelect</a></li>
+                        <li><a href="#">MWR CyberSec</a></li>
+                        <li><a href="#">Elenjical Solutions</a></li>
+                        <li><a href="#">Oxfusion</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Fin-Ed AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/investing.js"></script>
+</body>
+</html>
