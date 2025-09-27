@@ -346,3 +346,317 @@ app.use((req, res) => {
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+
+// Add these new routes to your server.js file after the existing scan routes
+
+// Bank Statement Analysis endpoint with Gemini AI
+app.post("/api/analyze/statement", async (req, res) => {
+  try {
+    const { text, filename, type } = req.body;
+    
+    if (!text) {
+      return res.status(400).json({ error: "Statement text is required" });
+    }
+
+    console.log(`📊 Analyzing ${type} statement with Gemini AI: ${filename}`);
+    
+    // Import Google Generative AI
+    const { GoogleGenerativeAI } = await import("@google/generative-ai");
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+
+    // Enhanced Gemini AI Prompt for Bank Statement Analysis
+    const prompt = `You are a professional financial analyst. Analyze this bank statement text and extract financial insights.
+
+Bank Statement Content:
+${text}
+
+IMPORTANT: Respond ONLY with valid JSON in this exact format:
+
+{
+  "transactions": [
+    {
+      "date": "2024-01-15",
+      "description": "Pick n Pay - Groceries",
+      "amount": -350.50,
+      "category": "Groceries"
+    }
+  ],
+  "summary": {
+    "totalIncome": 4500.00,
+    "totalExpenses": 3200.50,
+    "netFlow": 1299.50,
+    "transactionCount": 25,
+    "savingsRate": 28.9
+  },
+  "categories": {
+    "Groceries": 680.50,
+    "Transport": 420.00,
+    "Entertainment": 299.00
+  },
+  "insights": [
+    {
+      "type": "Spending Pattern",
+      "text": "Your highest spending category is Groceries at R680.50 (21% of total expenses)"
+    }
+  ],
+  "recommendations": [
+    {
+      "type": "Budget Optimization",
+      "text": "Consider reducing dining out expenses by 15% to increase your savings rate",
+      "priority": "medium"
+    }
+  ],
+  "monthlyTrends": {
+    "averageDaily": 106.68,
+    "peakSpendingDay": "Friday",
+    "lowestSpendingDay": "Tuesday"
+  }
+}
+
+Categorize transactions using these South African relevant categories:
+- Groceries (Pick n Pay, Woolworths, Checkers, Spar)
+- Transport (Fuel, Uber, Bolt, Taxi, Shell, BP, Sasol)
+- Entertainment (Netflix, DSTV, Showmax, Cinema)
+- Dining (Restaurants, Fast food, Coffee shops)
+- Shopping (Takealot, Clothing stores, Malls)
+- Utilities (Electricity, Water, Internet, Cell phone)
+- Healthcare (Medical aid, Pharmacy, Doctor)
+- Cash (ATM withdrawals)
+- Income (Salary, Deposits, Transfers in)
+- Other (Miscellaneous expenses)
+
+Extract actual transaction details, amounts in South African Rand (R), and provide actionable financial advice.`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const analysisText = response.text();
+
+    console.log("Gemini Raw Response:", analysisText);
+
+    // Parse Gemini response
+    const analysis = parseStatementAnalysis(analysisText);
+    
+    // Store analysis in database (optional)
+    await storeAnalysis(analysis, filename, type);
+    
+    res.json({
+      success: true,
+      filename: filename,
+      type: type,
+      timestamp: new Date().toISOString(),
+      ...analysis
+    });
+
+  } catch (error) {
+    console.error('❌ Gemini Statement Analysis Error:', error);
+    res.status(500).json({ 
+      error: "Analysis service unavailable",
+      message: error.message,
+      fallback: generateFallbackAnalysis()
+    });
+  }
+});
+
+// Helper function to parse Gemini statement analysis
+function parseStatementAnalysis(text) {
+  try {
+    console.log('Raw Gemini Analysis:', text);
+    
+    // Clean the response text
+    let cleanText = text.trim();
+    cleanText = cleanText.replace(/```json\s*/g, '');
+    cleanText = cleanText.replace(/```\s*/g, '');
+    cleanText = cleanText.replace(/^json\s*/g, '');
+    
+    // Extract JSON from response
+    const jsonMatch = cleanText.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      cleanText = jsonMatch[0];
+    }
+    
+    const parsed = JSON.parse(cleanText);
+    console.log('Parsed Analysis:', parsed);
+    
+    // Validate and structure the response
+    return {
+      transactions: Array.isArray(parsed.transactions) ? parsed.transactions : [],
+      summary: parsed.summary || {},
+      categories: parsed.categories || {},
+      insights: Array.isArray(parsed.insights) ? parsed.insights : [],
+      recommendations: Array.isArray(parsed.recommendations) ? parsed.recommendations : [],
+      monthlyTrends: parsed.monthlyTrends || {}
+    };
+    
+  } catch (error) {
+    console.error('Failed to parse statement analysis:', error);
+    return generateFallbackAnalysis();
+  }
+}
+
+// Generate fallback analysis when AI fails
+function generateFallbackAnalysis() {
+  return {
+    transactions: [
+      { date: "2024-01-15", description: "Sample Transaction", amount: -100.00, category: "Other" }
+    ],
+    summary: {
+      totalIncome: 4500.00,
+      totalExpenses: 3200.00,
+      netFlow: 1300.00,
+      transactionCount: 25,
+      savingsRate: 28.9
+    },
+    categories: {
+      "Groceries": 800.00,
+      "Transport": 600.00,
+      "Entertainment": 400.00,
+      "Other": 1400.00
+    },
+    insights: [
+      {
+        type: "Analysis Unavailable",
+        text: "AI analysis is temporarily unavailable. Please try again later for detailed insights."
+      }
+    ],
+    recommendations: [
+      {
+        type: "General Advice",
+        text: "Maintain the 50/30/20 budgeting rule: 50% needs, 30% wants, 20% savings",
+        priority: "medium"
+      }
+    ],
+    monthlyTrends: {
+      averageDaily: 106.67,
+      peakSpendingDay: "Friday",
+      lowestSpendingDay: "Tuesday"
+    }
+  };
+}
+
+// Store analysis results (optional - for tracking user patterns)
+async function storeAnalysis(analysis, filename, type) {
+  try {
+    // Only store if you want to track user analysis history
+    const { data, error } = await supabase
+      .from('statement_analyses')
+      .insert({
+        filename: filename,
+        type: type,
+        total_income: analysis.summary.totalIncome,
+        total_expenses: analysis.summary.totalExpenses,
+        net_flow: analysis.summary.netFlow,
+        transaction_count: analysis.summary.transactionCount,
+        savings_rate: analysis.summary.savingsRate,
+        categories: analysis.categories,
+        created_at: new Date().toISOString()
+      });
+    
+    if (error) {
+      console.error('Database storage error:', error);
+    }
+  } catch (error) {
+    console.error('Failed to store analysis:', error);
+  }
+}
+
+// Get user's analysis history
+app.get("/api/analysis/history", async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('statement_analyses')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(10);
+    
+    if (error) {
+      throw error;
+    }
+    
+    res.json({
+      success: true,
+      analyses: data
+    });
+    
+  } catch (error) {
+    console.error('Failed to fetch analysis history:', error);
+    res.status(500).json({ 
+      error: "Failed to fetch history",
+      message: error.message 
+    });
+  }
+});
+
+// Enhanced AI Chat for financial advice based on analysis
+app.post("/api/chat/financial", async (req, res) => {
+  try {
+    const { message, analysisData, context } = req.body;
+    
+    if (!message) {
+      return res.status(400).json({ error: "Message is required" });
+    }
+
+    const { GoogleGenerativeAI } = await import("@google/generative-ai");
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+
+    // Enhanced system prompt with analysis context
+    const systemPrompt = `You are a professional Personal Financial Advisor with access to the user's bank statement analysis.
+
+Your role:
+- Provide personalized financial advice based on their spending patterns
+- Help optimize their budget and savings
+- Identify areas for improvement
+- Suggest investment strategies based on their financial capacity
+- Provide actionable, specific recommendations
+
+${analysisData ? `
+User's Financial Data:
+- Monthly Income: R${analysisData.summary?.totalIncome || 0}
+- Monthly Expenses: R${analysisData.summary?.totalExpenses || 0}
+- Savings Rate: ${analysisData.summary?.savingsRate || 0}%
+- Top Spending Categories: ${Object.entries(analysisData.categories || {})
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 3)
+  .map(([cat, amount]) => `${cat}: R${amount}`)
+  .join(', ')}
+` : ''}
+
+Guidelines:
+- Be specific and actionable in your advice
+- Reference their actual spending data when relevant
+- Suggest realistic improvements based on their financial situation
+- Keep responses concise but informative
+- Use a professional but friendly tone
+
+User question: ${message}`;
+
+    const result = await model.generateContent(systemPrompt);
+    const response = await result.response;
+    const aiMessage = response.text();
+
+    res.json({ 
+      message: aiMessage,
+      timestamp: new Date().toISOString(),
+      context: "financial_analysis"
+    });
+
+  } catch (error) {
+    console.error('Financial AI Chat Error:', error);
+    
+    // Contextual fallback based on analysis data
+    let fallbackMessage = "I'm here to help with your financial questions. ";
+    
+    if (req.body.analysisData?.summary?.savingsRate < 10) {
+      fallbackMessage += "Based on your current spending pattern, I'd recommend focusing on increasing your savings rate by reducing discretionary expenses.";
+    } else {
+      fallbackMessage += "What specific aspect of your finances would you like to discuss?";
+    }
+
+    res.json({ 
+      message: fallbackMessage,
+      timestamp: new Date().toISOString(),
+      fallback: true
+    });
+  }
+});

@@ -8,6 +8,7 @@ function initializeDashboard() {
     initializeSidebar();
     initializeNavigation();
     initializeAIWidget();
+    initializeStatementAnalyzer();
     initializeCharts();
     initializeScanners();
     initializeEducationTabs();
@@ -1261,6 +1262,11 @@ function initializeSectionFeatures(section) {
         case 'ai-advisor':
             initializeAIChat();
             break;
+
+        case 'statement-analyzer':
+            // Analyzer is already initialized, just ensure it's ready
+            resetStatementAnalyzer();
+            break;
         case 'fraud-scanner':
             // Already initialized in initializeScanners
             break;
@@ -1283,6 +1289,606 @@ function initializeSectionFeatures(section) {
             }, 100);
             break;
     }
+}
+
+// Statement Analyzer Variables
+let currentAnalysisData = null;
+let categoryChart = null;
+let trendsChart = null;
+
+// Initialize Statement Analyzer
+function initializeStatementAnalyzer() {
+    // PDF Upload
+    document.getElementById('analyzerPdfUpload').addEventListener('click', () => {
+        document.getElementById('analyzerPdfInput').click();
+    });
+
+    document.getElementById('analyzerPdfInput').addEventListener('change', handleAnalyzerPDFUpload);
+
+    // Image Upload
+    document.getElementById('analyzerImageUpload').addEventListener('click', () => {
+        document.getElementById('analyzerImageInput').click();
+    });
+
+    document.getElementById('analyzerImageInput').addEventListener('change', handleAnalyzerImageUpload);
+
+    // Camera Capture
+    document.getElementById('analyzerCameraCapture').addEventListener('click', () => {
+        document.getElementById('analyzerCameraInput').click();
+    });
+
+    document.getElementById('analyzerCameraInput').addEventListener('change', handleAnalyzerImageUpload);
+
+    // Financial Chat
+    const financialChatInput = document.getElementById('financialChatInput');
+    const sendFinancialMessage = document.getElementById('sendFinancialMessage');
+    
+    if (sendFinancialMessage) {
+        sendFinancialMessage.addEventListener('click', sendFinancialChatMessage);
+    }
+    
+    if (financialChatInput) {
+        financialChatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendFinancialChatMessage();
+            }
+        });
+    }
+}
+
+// Handle PDF Upload for Analysis
+async function handleAnalyzerPDFUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    showAnalyzerProcessing();
+    updateAnalyzerProgress(10, "Reading PDF file...");
+
+    try {
+        // Extract text from PDF using PDF.js
+        const text = await extractTextFromAnalyzerPDF(file);
+        updateAnalyzerProgress(50, "Sending to AI for analysis...");
+        
+        // Send to backend for AI analysis
+        const analysis = await analyzeStatementWithAI(text, file.name, 'pdf');
+        updateAnalyzerProgress(100, "Analysis complete!");
+        
+        setTimeout(() => {
+            showAnalysisResults(analysis);
+        }, 1000);
+
+    } catch (error) {
+        console.error('PDF analysis error:', error);
+        showAnalyzerError('Failed to process PDF. Please try again or use a different format.');
+    }
+}
+
+// Handle Image Upload for Analysis
+async function handleAnalyzerImageUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    showAnalyzerProcessing();
+    updateAnalyzerProgress(10, "Processing image...");
+
+    try {
+        // Extract text using OCR
+        const text = await extractTextFromAnalyzerImage(file);
+        updateAnalyzerProgress(70, "Sending to AI for analysis...");
+        
+        // Send to backend for AI analysis
+        const analysis = await analyzeStatementWithAI(text, file.name, 'image');
+        updateAnalyzerProgress(100, "Analysis complete!");
+        
+        setTimeout(() => {
+            showAnalysisResults(analysis);
+        }, 1000);
+
+    } catch (error) {
+        console.error('Image analysis error:', error);
+        showAnalyzerError('Failed to process image. Please ensure the text is clear and try again.');
+    }
+}
+
+// Extract text from PDF
+async function extractTextFromAnalyzerPDF(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+            try {
+                const typedArray = new Uint8Array(e.target.result);
+                const pdf = await pdfjsLib.getDocument(typedArray).promise;
+                
+                let fullText = '';
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const textContent = await page.getTextContent();
+                    const pageText = textContent.items.map(item => item.str).join(' ');
+                    fullText += pageText + '\n';
+                    
+                    updateAnalyzerProgress(10 + (i / pdf.numPages) * 30, `Reading page ${i}/${pdf.numPages}...`);
+                }
+                
+                resolve(fullText);
+            } catch (error) {
+                reject(error);
+            }
+        };
+        reader.onerror = () => reject(new Error('Failed to read file'));
+        reader.readAsArrayBuffer(file);
+    });
+}
+
+// Extract text from image using Tesseract OCR
+async function extractTextFromAnalyzerImage(file) {
+    updateAnalyzerProgress(20, "Initializing OCR...");
+    
+    // Use Tesseract.js for OCR
+    const { createWorker } = Tesseract;
+    const worker = await createWorker();
+    
+    try {
+        await worker.loadLanguage('eng');
+        await worker.initialize('eng');
+        
+        updateAnalyzerProgress(40, "Reading text from image...");
+        
+        const { data: { text } } = await worker.recognize(file);
+        
+        await worker.terminate();
+        return text;
+        
+    } catch (error) {
+        await worker.terminate();
+        throw error;
+    }
+}
+
+// Send extracted text to backend AI for analysis
+async function analyzeStatementWithAI(text, filename, type) {
+    try {
+        const response = await fetch('/api/analyze/statement', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text: text,
+                filename: filename,
+                type: type
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Analysis failed');
+        }
+
+        const result = await response.json();
+        return result;
+
+    } catch (error) {
+        console.error('AI Analysis error:', error);
+        throw error;
+    }
+}
+
+// Show processing state
+function showAnalyzerProcessing() {
+    document.getElementById('analyzerUploadSection').style.display = 'none';
+    document.getElementById('analyzerProcessingSection').classList.add('active');
+    document.getElementById('analyzerResults').classList.remove('active');
+}
+
+// Update progress bar
+function updateAnalyzerProgress(percentage, text) {
+    document.getElementById('analyzerProgressBar').style.width = percentage + '%';
+    document.getElementById('analyzerProgressText').textContent = text;
+}
+
+// Show analysis results
+function showAnalysisResults(analysis) {
+    currentAnalysisData = analysis;
+    
+    document.getElementById('analyzerProcessingSection').classList.remove('active');
+    document.getElementById('analyzerResults').classList.add('active');
+    
+    // Render all sections
+    renderFinancialSummary(analysis);
+    renderCategoryChart(analysis.categories);
+    renderTrendsChart(analysis.transactions || []);
+    renderCategoryDetails(analysis.categories);
+    renderAIRecommendations(analysis.recommendations || []);
+    renderFinancialInsights(analysis.insights || []);
+    
+    // Initialize financial chat
+    initializeFinancialChat(analysis);
+}
+
+// Render financial summary cards
+function renderFinancialSummary(analysis) {
+    const container = document.getElementById('summaryCards');
+    const summary = analysis.summary || {};
+    
+    container.innerHTML = `
+        <div class="summary-card">
+            <h3>Monthly Income</h3>
+            <div class="summary-value">R${(summary.totalIncome || 0).toFixed(2)}</div>
+        </div>
+        <div class="summary-card">
+            <h3>Total Expenses</h3>
+            <div class="summary-value">R${(summary.totalExpenses || 0).toFixed(2)}</div>
+        </div>
+        <div class="summary-card">
+            <h3>Net Flow</h3>
+            <div class="summary-value ${summary.netFlow >= 0 ? 'positive' : 'negative'}">
+                R${(summary.netFlow || 0).toFixed(2)}
+            </div>
+        </div>
+        <div class="summary-card">
+            <h3>Savings Rate</h3>
+            <div class="summary-value">${(summary.savingsRate || 0).toFixed(1)}%</div>
+        </div>
+        <div class="summary-card">
+            <h3>Transactions</h3>
+            <div class="summary-value">${summary.transactionCount || 0}</div>
+        </div>
+    `;
+}
+
+// Render category spending chart
+function renderCategoryChart(categories) {
+    const ctx = document.getElementById('categoryChart').getContext('2d');
+    
+    const categoryData = Object.entries(categories || {})
+        .filter(([cat]) => cat !== 'Income')
+        .sort((a, b) => b[1] - a[1]);
+    
+    const labels = categoryData.map(([cat]) => cat);
+    const data = categoryData.map(([, amount]) => amount);
+    const colors = [
+        '#22c55e', '#3b82f6', '#ef4444', '#f59e0b', '#8b5cf6',
+        '#10b981', '#f97316', '#06b6d4', '#84cc16', '#ec4899'
+    ];
+
+    if (categoryChart) {
+        categoryChart.destroy();
+    }
+
+    categoryChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: colors.slice(0, labels.length),
+                borderColor: '#0a0e1a',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#e2e8f0',
+                        padding: 20,
+                        usePointStyle: true
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Render trends chart
+function renderTrendsChart(transactions) {
+    const ctx = document.getElementById('trendsChart').getContext('2d');
+    
+    // Generate daily spending data for the last 30 days
+    const last30Days = [];
+    const dailySpending = {};
+    
+    for (let i = 29; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toISOString().split('T')[0];
+        last30Days.push(dateStr);
+        dailySpending[dateStr] = 0;
+    }
+
+    // Distribute transactions across days (simulation for demo)
+    const totalExpenses = transactions
+        .filter(t => t.amount < 0)
+        .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+    
+    last30Days.forEach((date, index) => {
+        const baseAmount = totalExpenses / 30;
+        const variance = (Math.random() - 0.5) * baseAmount * 0.6;
+        const weekendMultiplier = [0, 6].includes(new Date(date).getDay()) ? 1.2 : 1;
+        dailySpending[date] = Math.max(0, (baseAmount + variance) * weekendMultiplier);
+    });
+
+    const labels = last30Days.map(date => 
+        new Date(date).toLocaleDateString('en-ZA', { month: 'short', day: 'numeric' })
+    );
+    const data = last30Days.map(date => dailySpending[date]);
+
+    if (trendsChart) {
+        trendsChart.destroy();
+    }
+
+    trendsChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Daily Spending',
+                data: data,
+                borderColor: '#22c55e',
+                backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#e2e8f0'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#94a3b8',
+                        maxTicksLimit: 10
+                    },
+                    grid: {
+                        color: 'rgba(34, 197, 94, 0.1)'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#94a3b8',
+                        callback: function(value) {
+                            return 'R' + value.toFixed(0);
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(34, 197, 94, 0.1)'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Render category details breakdown
+function renderCategoryDetails(categories) {
+    const container = document.getElementById('categoryDetails');
+    const categoryIcons = {
+        'Groceries': 'fa-shopping-cart',
+        'Transport': 'fa-car',
+        'Entertainment': 'fa-film',
+        'Dining': 'fa-utensils',
+        'Shopping': 'fa-shopping-bag',
+        'Utilities': 'fa-lightbulb',
+        'Healthcare': 'fa-heartbeat',
+        'Cash': 'fa-money-bill-wave',
+        'Income': 'fa-coins',
+        'Other': 'fa-ellipsis-h'
+    };
+
+    const categoryData = Object.entries(categories || {})
+        .filter(([cat]) => cat !== 'Income')
+        .sort((a, b) => b[1] - a[1]);
+
+    container.innerHTML = categoryData.map(([category, amount]) => `
+        <div class="category-item">
+            <div class="category-info">
+                <div class="category-icon">
+                    <i class="fas ${categoryIcons[category] || 'fa-ellipsis-h'}"></i>
+                </div>
+                <div>
+                    <div class="category-name">${category}</div>
+                    <div class="category-count">Monthly spending</div>
+                </div>
+            </div>
+            <div class="category-amount">R${amount.toFixed(2)}</div>
+        </div>
+    `).join('');
+}
+
+// Render AI recommendations
+function renderAIRecommendations(recommendations) {
+    const container = document.getElementById('aiRecommendations');
+    
+    container.innerHTML = recommendations.map(rec => `
+        <div class="recommendation-item">
+            <div class="recommendation-type">${rec.type}</div>
+            <div class="recommendation-text">${rec.text}</div>
+        </div>
+    `).join('');
+}
+
+// Render financial insights
+function renderFinancialInsights(insights) {
+    const container = document.getElementById('financialInsights');
+    
+    container.innerHTML = insights.map(insight => `
+        <div class="insight-item">
+            <div class="insight-type">${insight.type}</div>
+            <div class="recommendation-text">${insight.text}</div>
+        </div>
+    `).join('');
+}
+
+// Initialize financial chat with context
+function initializeFinancialChat(analysis) {
+    const messagesContainer = document.getElementById('financialChatMessages');
+    
+    // Add initial AI message with context
+    const welcomeMessage = `I've analyzed your bank statement and I'm ready to help you optimize your finances! 
+    
+Your savings rate is ${(analysis.summary?.savingsRate || 0).toFixed(1)}% and your top spending category is ${
+        Object.entries(analysis.categories || {})
+            .filter(([cat]) => cat !== 'Income')
+            .sort((a, b) => b[1] - a[1])[0]?.[0] || 'unknown'
+    }. 
+
+What would you like to know about your spending patterns?`;
+
+    addFinancialChatMessage(welcomeMessage, 'ai');
+}
+
+// Send financial chat message
+async function sendFinancialChatMessage() {
+    const input = document.getElementById('financialChatInput');
+    const message = input.value.trim();
+    
+    if (!message) return;
+    
+    addFinancialChatMessage(message, 'user');
+    input.value = '';
+    
+    // Show typing indicator
+    showFinancialChatTyping();
+    
+    try {
+        const response = await fetch('/api/chat/financial', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: message,
+                analysisData: currentAnalysisData,
+                context: 'statement_analysis'
+            })
+        });
+        
+        const data = await response.json();
+        
+        removeFinancialChatTyping();
+        addFinancialChatMessage(data.message, 'ai');
+        
+    } catch (error) {
+        console.error('Financial chat error:', error);
+        removeFinancialChatTyping();
+        addFinancialChatMessage('Sorry, I had trouble processing that. Could you try rephrasing your question?', 'ai');
+    }
+}
+
+// Add message to financial chat
+function addFinancialChatMessage(message, type) {
+    const container = document.getElementById('financialChatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${type}-message`;
+    
+    messageDiv.innerHTML = `
+        <div class="message-avatar">
+            <i class="fas ${type === 'user' ? 'fa-user' : 'fa-robot'}"></i>
+        </div>
+        <div class="message-content">
+            <p>${message}</p>
+        </div>
+    `;
+    
+    container.appendChild(messageDiv);
+    container.scrollTop = container.scrollHeight;
+}
+
+// Show typing indicator in financial chat
+function showFinancialChatTyping() {
+    const container = document.getElementById('financialChatMessages');
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message ai-message typing-indicator';
+    typingDiv.id = 'financial-chat-typing';
+    typingDiv.innerHTML = `
+        <div class="message-avatar">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="message-content typing-dots">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        </div>
+    `;
+    
+    container.appendChild(typingDiv);
+    container.scrollTop = container.scrollHeight;
+}
+
+// Remove typing indicator
+function removeFinancialChatTyping() {
+    const typingIndicator = document.getElementById('financial-chat-typing');
+    if (typingIndicator) {
+        typingIndicator.remove();
+    }
+}
+
+// Show error message
+function showAnalyzerError(message) {
+    document.getElementById('analyzerProcessingSection').classList.remove('active');
+    
+    const uploadSection = document.getElementById('analyzerUploadSection');
+    uploadSection.style.display = 'block';
+    
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.innerHTML = `<strong>Error:</strong> ${message}`;
+    
+    uploadSection.appendChild(errorDiv);
+    
+    setTimeout(() => {
+        errorDiv.remove();
+    }, 5000);
+}
+
+// Reset statement analyzer
+function resetStatementAnalyzer() {
+    // Hide results
+    document.getElementById('analyzerResults').classList.remove('active');
+    document.getElementById('analyzerProcessingSection').classList.remove('active');
+    
+    // Show upload section
+    document.getElementById('analyzerUploadSection').style.display = 'block';
+    
+    // Clear file inputs
+    document.getElementById('analyzerPdfInput').value = '';
+    document.getElementById('analyzerImageInput').value = '';
+    document.getElementById('analyzerCameraInput').value = '';
+    
+    // Clear data
+    currentAnalysisData = null;
+    
+    // Destroy charts
+    if (categoryChart) {
+        categoryChart.destroy();
+        categoryChart = null;
+    }
+    if (trendsChart) {
+        trendsChart.destroy();
+        trendsChart = null;
+    }
+    
+    // Clear chat messages
+    const chatContainer = document.getElementById('financialChatMessages');
+    if (chatContainer) {
+        chatContainer.innerHTML = '';
+    }
+    
+    // Reset progress
+    document.getElementById('analyzerProgressBar').style.width = '0%';
+    document.getElementById('analyzerProgressText').textContent = 'Initializing...';
+    
+    showNotification('Ready to analyze another statement', 'success');
 }
 
 // Security settings toggles

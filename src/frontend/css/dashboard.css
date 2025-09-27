@@ -1702,3 +1702,311 @@ input:checked + .slider:before {
         font-size: 0.9rem;
     }
 }
+
+/* Statement Analyzer Styles */
+.analyzer-upload-section {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(34, 197, 94, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.upload-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.upload-method {
+    background: rgba(15, 23, 42, 0.8);
+    border: 2px dashed rgba(34, 197, 94, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-method:hover {
+    border-color: #22c55e;
+    background: rgba(34, 197, 94, 0.05);
+    transform: translateY(-2px);
+}
+
+.upload-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.upload-method h3 {
+    color: #f8fafc;
+    margin-bottom: 0.5rem;
+}
+
+.upload-method p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.analyzer-processing-section {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(34, 197, 94, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: none;
+    text-align: center;
+}
+
+.analyzer-processing-section.active {
+    display: block;
+}
+
+.analyzer-results {
+    display: none;
+}
+
+.analyzer-results.active {
+    display: block;
+}
+
+.financial-summary {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(34, 197, 94, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.summary-card {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.summary-card h3 {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.summary-value {
+    color: #22c55e;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.summary-change {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.summary-change.positive {
+    color: #22c55e;
+}
+
+.summary-change.negative {
+    color: #ef4444;
+}
+
+.charts-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.chart-container {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(34, 197, 94, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+.chart-container h3 {
+    color: #f8fafc;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.detailed-analysis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.analysis-card {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(34, 197, 94, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+.analysis-card h3 {
+    color: #22c55e;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(34, 197, 94, 0.1);
+}
+
+.category-item:last-child {
+    border-bottom: none;
+}
+
+.category-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.category-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.category-name {
+    color: #f8fafc;
+    font-weight: 600;
+}
+
+.category-count {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.category-amount {
+    color: #22c55e;
+    font-weight: 600;
+}
+
+.recommendation-item {
+    background: rgba(34, 197, 94, 0.1);
+    border-left: 4px solid #22c55e;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.recommendation-item:last-child {
+    margin-bottom: 0;
+}
+
+.recommendation-type {
+    font-weight: 600;
+    color: #22c55e;
+    margin-bottom: 0.5rem;
+}
+
+.recommendation-text {
+    color: #e2e8f0;
+    line-height: 1.6;
+}
+
+.insight-item {
+    background: rgba(59, 130, 246, 0.1);
+    border-left: 4px solid #3b82f6;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.insight-item:last-child {
+    margin-bottom: 0;
+}
+
+.insight-type {
+    font-weight: 600;
+    color: #3b82f6;
+    margin-bottom: 0.5rem;
+}
+
+.financial-chat {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(34, 197, 94, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.financial-chat h3 {
+    color: #22c55e;
+    margin-bottom: 1rem;
+}
+
+.financial-chat .chat-messages {
+    height: 300px;
+    overflow-y: auto;
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.reset-btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    margin-top: 2rem;
+}
+
+.reset-btn:hover {
+    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+}
+
+@media (max-width: 768px) {
+    .upload-methods {
+        grid-template-columns: 1fr;
+    }
+    
+    .charts-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .detailed-analysis {
+        grid-template-columns: 1fr;
+    }
+}
