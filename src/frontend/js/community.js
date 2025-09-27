@@ -1,50 +1,51 @@
+
 document.addEventListener('DOMContentLoaded', () => {
-    const topicsList = document.getElementById('topics-list');
-    const recentPostsList = document.getElementById('recent-posts-list');
-    const newTopicBtn = document.getElementById('new-topic-btn');
-    const searchBtn = document.getElementById('search-btn');
-    const searchInput = document.getElementById('search-input');
-
-    const topics = [
-        { id: 1, title: 'General Discussion' },
-        { id: 2, title: 'Investing Strategies' },
-        { id: 3, title: 'Budgeting Tips' },
-        { id: 4, title: 'Cybersecurity Best Practices' },
-    ];
-
-    const recentPosts = [
-        { id: 1, topicId: 2, title: 'What\'s the best way to start investing in stocks?' },
-        { id: 2, topicId: 3, title: 'How to create a budget that actually works' },
-        { id: 3, topicId: 4, title: 'Beware of this new phishing scam' },
-    ];
-
-    const renderTopics = () => {
-        topicsList.innerHTML = '';
-        topics.forEach(topic => {
-            const li = document.createElement('li');
-            li.textContent = topic.title;
-            topicsList.appendChild(li);
+    // New discussion form submission
+    const newDiscussionForm = document.getElementById('new-discussion-form');
+    if (newDiscussionForm) {
+        newDiscussionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('discussion-title').value;
+            const content = document.getElementById('discussion-content').value;
+            if (title && content) {
+                console.log('New Discussion:', { title, content });
+                alert('Your discussion has been posted!');
+                newDiscussionForm.reset();
+                // In a real app, you would dynamically add the new post to the list.
+            }
         });
-    };
+    }
 
-    const renderRecentPosts = () => {
-        recentPostsList.innerHTML = '';
-        recentPosts.forEach(post => {
-            const li = document.createElement('li');
-            li.textContent = post.title;
-            recentPostsList.appendChild(li);
+    // Handle sorting
+    const sortSelect = document.getElementById('sort-by');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', (e) => {
+            console.log('Sorting posts by:', e.target.value);
+            // Add logic to re-order posts here
         });
-    };
+    }
 
-    newTopicBtn.addEventListener('click', () => {
-        alert('Create New Topic functionality will be implemented in the future.');
+    // Handle category filtering
+    const categoryLinks = document.querySelectorAll('.category-list a');
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const category = e.target.textContent.trim();
+            console.log('Filtering by category:', category);
+            // Add filtering logic here
+            categoryLinks.forEach(l => l.classList.remove('active'));
+            e.target.classList.add('active');
+        });
     });
 
-    searchBtn.addEventListener('click', () => {
-        const searchTerm = searchInput.value;
-        alert(`Searching for "${searchTerm}" will be implemented in the future.`);
+    // Handle tag filtering
+    const tagLinks = document.querySelectorAll('.tags-list a');
+    tagLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tag = e.target.textContent.trim();
+            console.log('Filtering by tag:', tag);
+            // Add filtering logic here
+        });
     });
-
-    renderTopics();
-    renderRecentPosts();
 });

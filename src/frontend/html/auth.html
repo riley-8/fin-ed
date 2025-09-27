@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | FinSecure</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="dark">
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <img src="https://placehold.co/100x40/334155/ffffff?text=FinSecure" alt="FinSecure Logo">
+                <h1 id="auth-title">Welcome Back</h1>
+                <p id="auth-subtitle">Login to access your financial dashboard.</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form">
+                <div class="input-group">
+                    <label for="login-email"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="login-email" placeholder="you@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="login-password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <span>Remember Me</span>
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <p class="auth-switch">
+                    Don't have an account? <a href="#" id="show-register">Sign Up</a>
+                </p>
+            </form>
+
+            <!-- Registration Form -->
+            <form id="register-form" class="auth-form hidden">
+                <div class="input-group">
+                    <label for="register-name"><i class="fas fa-user"></i> Full Name</label>
+                    <input type="text" id="register-name" placeholder="John Doe" required>
+                </div>
+                <div class="input-group">
+                    <label for="register-email"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="register-email" placeholder="you@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="register-password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="register-password" placeholder="Create a strong password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                <p class="auth-switch">
+                    Already have an account? <a href="#" id="show-login">Login</a>
+                </p>
+            </form>
+        </div>
+        <div class="auth-promo">
+            <div class="promo-content">
+                <h2>Secure Your Future, One Step at a Time.</h2>
+                <p>Join thousands of users who trust FinSecure to manage their finances, investments, and goals with confidence.</p>
+                <ul>
+                    <li><i class="fas fa-chart-line"></i> Track all your investments in real-time.</li>
+                    <li><i class="fas fa-piggy-bank"></i> Set and crush your financial goals.</li>
+                    <li><i class="fas fa-shield-alt"></i> Bank-level security to protect your data.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+</body>
+</html>

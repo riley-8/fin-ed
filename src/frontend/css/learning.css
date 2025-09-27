@@ -1,5 +1,5 @@
 
-.courses-hero {
+.learning-hero {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
     color: #fff;
     padding: 4rem 2rem;
@@ -7,44 +7,62 @@
     border-radius: 8px;
 }
 
-.courses-list {
+.learning-content {
     margin-top: 3rem;
 }
 
-.courses-grid {
+.path-selection {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.path-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.path-btn:hover {
+    background-color: #0056b3;
+}
+
+.path-btn.active {
+    background-color: #0056b3;
+}
+
+.learning-modules {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    margin-bottom: 2rem;
 }
 
-.course-card {
+.module-card {
     background-color: #fff;
+    padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.course-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.course-card .card-content {
-    padding: 1.5rem;
-}
-
-.interactive-simulations {
+.webinars-section {
     margin-top: 3rem;
 }
 
-.simulations-grid {
+.webinars-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
-.simulation-card {
+.webinar-card {
     background-color: #fff;
     padding: 2rem;
     border-radius: 8px;
@@ -52,11 +70,11 @@
     text-align: center;
 }
 
-.progress-tracking {
+.quizzes-section {
     margin-top: 3rem;
 }
 
-.progress-bar {
+.quiz-card {
     background-color: #fff;
     padding: 2rem;
     border-radius: 8px;

@@ -1,28 +1,34 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Security - Fin-Ed AI</title>
+    <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/security.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="landing.html" class="logo">Fin-Ed AI</a>
-            <ul>
-                <li><a href="landing.html#home">Home</a></li>
-                <li><a href="courses.html">Courses</a></li>
-                <li><a href="calculators.html">Calculators</a></li>
-                <li><a href="credit-score.html">Credit Score</a></li>
-                <li><a href="budgeting.html">Budgeting</a></li>
-                <li><a href="security.html">Security</a></li>
-                <li><a href="landing.html#features">Features</a></li>
-                <li><a href="landing.html#about">About</a></li>
-                <li><a href="landing.html#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="landing.html" class="nav-logo">
+                <i class="fas fa-lightbulb"></i>
+                <span>Fin-Ed AI</span>
+            </a>
+            <div class="nav-menu">
+                <a href="courses.html" class="nav-link">Courses</a>
+                <a href="calculators.html" class="nav-link">Calculators</a>
+                <a href="credit-score.html" class="nav-link">Credit Score</a>
+                <a href="budgeting.html" class="nav-link">Budgeting</a>
+                <a href="security.html" class="nav-link">Security</a>
+                <a href="stock-market.html" class="nav-link">Stock Market</a>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="community.html" class="nav-link">Community</a>
+            </div>
+            <a href="auth.html" class="cta-btn">Get Started</a>
+        </div>
+    </nav>
 
     <main>
         <section class="security-hero">
@@ -55,10 +61,76 @@
                 </article>
             </article>
         </section>
+
+        <section class="latest-scams">
+            <header class="section-header">
+                <h2>Latest Scams</h2>
+                <p>Stay informed about the latest scams and how to avoid them.</p>
+            </header>
+            <article class="scams-list">
+                <div class="scam-alert">
+                    <h4>Impersonation Scams</h4>
+                    <p>Scammers are impersonating government agencies and well-known companies to trick people into giving away their personal information.</p>
+                </div>
+                <div class="scam-alert">
+                    <h4>Investment Scams</h4>
+                    <p>Beware of investment opportunities that promise high returns with little to no risk. These are often scams.</p>
+                </div>
+            </article>
+        </section>
+
+        <section class="report-scam">
+            <header class="section-header">
+                <h2>Report a Scam</h2>
+                <p>If you've been targeted by a scam, report it to the authorities to help protect others.</p>
+            </header>
+            <a href="#" class="btn-primary">Report a Scam</a>
+        </section>
     </main>
 
-    <footer>
-        <p>&copy; 2024 Fin-Ed AI. All rights reserved.</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Fin-Ed AI</span>
+                </div>
+                <div class="footer-links">
+                    <a href="courses.html" class="footer-link">Courses</a>
+                    <a href="calculators.html" class="footer-link">Calculators</a>
+                    <a href="credit-score.html" class="footer-link">Credit Score</a>
+                    <a href="budgeting.html" class="footer-link">Budgeting</a>
+                    <a href="security.html" class="footer-link">Security</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="footer-social-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="sponsors">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Our Sponsors</h2>
+                    </div>
+                    <div class="sponsors-grid">
+                        <div class="sponsor-logo"><img src="" alt="Entelect"></div>
+                        <div class="sponsor-logo"><img src="" alt="MWR Cybersec"></div>
+                        <div class="sponsor-logo"><img src="" alt="Elenjical Solutions"></div>
+                        <div class="sponsor-logo"><img src="" alt="Pygio"></div>
+                        <div class="sponsor-logo"><img src="" alt="Analytical Technologies"></div>
+                        <div class="sponsor-logo"><img src="" alt="BET Software"></div>
+                        <div class="sponsor-logo"><img src="" alt="Oxfusion"></div>
+                        <div class="sponsor-logo"><img src="" alt="BSG"></div>
+                        <div class="sponsor-logo"><img src="" alt="Disraptor"></div>
+                        <div class="sponsor-logo"><img src="" alt="eHub"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Fin-Ed AI. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
     <script src="../js/security.js"></script>
